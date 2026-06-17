@@ -9,7 +9,57 @@ let tractorCost = 200
 let drillCost = 500
 let upgrade1Cost = 10
 
+const saveButton = document.getElementById("save")
+const loadButton = document.getElementById("load")
+const restartButton = document.getElementById("restart")
+const autoSaveBox = document.getElementById("autoSave")
 const stealButton = document.getElementById("steal")
+const upgrade1Button = document.getElementById("upgrade1Button")
+const minerButton = document.getElementById("miner")
+const tractorButton = document.getElementById("tractor")
+const drillButton = document.getElementById("drill")
+
+let interval
+
+function saveGame () {
+    const saveData = {
+        coins,
+        upgrade1Amount,
+        minerAmount,
+        tractorAmount,
+        drillAmount
+    }
+
+    const saveString = JSON.stringify(saveData)
+    localStorage.setItem("saveString", saveString)
+}
+
+function loadGame () {
+    const loadString = localStorage.getItem("saveString")
+
+    if (loadString){
+        const loadData = JSON.parse(loadString)
+        coins = loadData.coins
+        upgrade1Amount = loadData.upgrade1Amount
+        minerAmount = loadData.minerAmount
+        tractorAmount = loadData.tractorAmount
+        drillAmount = loadData.drillAmount
+
+        updateAll()
+    }
+}
+
+function restartGame () {
+    localStorage.removeItem("saveString")
+    location.reload()
+}
+
+function autoSave () {
+    interval = setInterval(() => {
+        saveGame();
+        console.log("Game saved")
+    }, 2000)
+}
 
 function updateAll() {
     minerCost = 50 * (1.2 ** minerAmount)
@@ -26,6 +76,10 @@ function updateAll() {
     document.getElementById("drillAmount").textContent = drillAmount.toFixed(0)
     document.getElementById("drillCost").textContent = drillCost.toFixed(0)
     document.getElementById("coinsPerSecond").textContent = coinsPerSecond.toFixed(0)
+    upgrade1Button.disabled = coins < upgrade1Cost
+    minerButton.disabled = coins < minerCost
+    tractorButton.disabled = coins < tractorCost
+    drillButton.disabled = coins < drillCost
 }
 
 function passiveIncome() {
@@ -34,12 +88,31 @@ function passiveIncome() {
     updateAll()
 }
 
+saveButton.addEventListener("click", () => {
+    saveGame()
+})
+
+loadButton.addEventListener("click", () => {
+    loadGame()
+})
+
+restartButton.addEventListener("click", () => {
+    restartGame()
+})
+
+autoSaveBox.addEventListener("change", () => {
+    if (autoSaveBox.checked) {
+        autoSave()
+    } else {
+        clearInterval(interval)
+        interval = null
+    }
+})
+
 stealButton.addEventListener("click", () => {
     coins += 1 + upgrade1Amount
     updateAll()
 })
-
-const upgrade1Button = document.getElementById("upgrade1Button")
 
 upgrade1Button.addEventListener("click", () => {
     if (coins >= upgrade1Cost) {
@@ -49,9 +122,7 @@ upgrade1Button.addEventListener("click", () => {
     }
 })
 
-const miner = document.getElementById("miner")
-
-miner.addEventListener("click", () => {
+minerButton.addEventListener("click", () => {
     if (coins >= minerCost) {
         coins -= minerCost
         minerAmount += 1
@@ -59,9 +130,7 @@ miner.addEventListener("click", () => {
     }
 })
 
-const tractor = document.getElementById("tractor")
-
-tractor.addEventListener("click", () => {
+tractorButton.addEventListener("click", () => {
     if (coins >= tractorCost) {
         coins -= tractorCost
         tractorAmount += 1
@@ -69,9 +138,7 @@ tractor.addEventListener("click", () => {
     }
 })
 
-const drill = document.getElementById("drill")
-
-drill.addEventListener("click", () => {
+drillButton.addEventListener("click", () => {
     if (coins >= drillCost) {
         coins -= drillCost
         drillAmount += 1
@@ -80,3 +147,5 @@ drill.addEventListener("click", () => {
 })
 
 setInterval(passiveIncome, 1000)
+
+loadGame()
