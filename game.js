@@ -8,6 +8,12 @@ let minerCost = 50
 let tractorCost = 200
 let drillCost = 500
 let upgrade1Cost = 10
+let totalCoinsEarned = 0
+let totalClicks = 0
+let timePlayed = 0
+let seconds = 0
+let minutes = 0
+let hours = 0
 
 const saveButton = document.getElementById("save")
 const loadButton = document.getElementById("load")
@@ -23,6 +29,8 @@ let interval
 
 function saveGame () {
     const saveData = {
+        totalCoinsEarned,
+        totalClicks,
         coins,
         upgrade1Amount,
         minerAmount,
@@ -39,6 +47,8 @@ function loadGame () {
 
     if (loadString){
         const loadData = JSON.parse(loadString)
+        totalCoinsEarned = loadData.totalCoinsEarned
+        totalClicks = loadData.totalClicks
         coins = loadData.coins
         upgrade1Amount = loadData.upgrade1Amount
         minerAmount = loadData.minerAmount
@@ -66,6 +76,9 @@ function updateAll() {
     tractorCost = 200 * (1.2 ** tractorAmount)
     drillCost = 500 * (1.2 ** drillAmount)
     upgrade1Cost = 10 * (1.2 ** upgrade1Amount)
+    document.getElementById("totalCoinsEarned").textContent = totalCoinsEarned.toFixed(0)
+    document.getElementById("totalClicks").textContent = totalClicks
+    document.getElementById("timePlayed").textContent = formatTime()
     document.getElementById("coins").textContent = coins.toFixed(0)
     document.getElementById("upgrade1Amount").textContent = upgrade1Amount.toFixed(0)
     document.getElementById("upgrade1Cost").textContent = upgrade1Cost.toFixed(0)
@@ -80,13 +93,35 @@ function updateAll() {
     minerButton.disabled = coins < minerCost
     tractorButton.disabled = coins < tractorCost
     drillButton.disabled = coins < drillCost
+    console.log(formatTime())
 }
 
 function passiveIncome() {
     coinsPerSecond = minerAmount + tractorAmount * 5 + drillAmount * 20
     coins += coinsPerSecond
+    totalCoinsEarned += coinsPerSecond
     updateAll()
 }
+
+function formatTime() {
+    hours = Math.floor(timePlayed / 3600)
+    minutes = Math.floor(timePlayed / 60)
+    seconds = timePlayed % 60
+
+    if (hours > 0) {
+        return `${hours}h ${minutes}m ${seconds}s`
+    }
+
+    if (minutes > 0) {
+        return `${minutes}m ${seconds}s`
+    }
+
+    return `${seconds}s`
+}
+
+setInterval(() => {
+    timePlayed +=1
+}, 1000)
 
 saveButton.addEventListener("click", () => {
     saveGame()
@@ -109,8 +144,13 @@ autoSaveBox.addEventListener("change", () => {
     }
 })
 
+document.addEventListener("click", () => {
+    totalClicks += 1
+})
+
 stealButton.addEventListener("click", () => {
     coins += 1 + upgrade1Amount
+    totalCoinsEarned += 1 + upgrade1Amount
     updateAll()
 })
 
