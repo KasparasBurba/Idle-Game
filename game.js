@@ -4,6 +4,7 @@ let minerAmount = 0
 let tractorAmount = 0
 let drillAmount = 0
 let coinsPerSecond = 0
+let coinsPerClick = 1
 let minerCost = 50
 let tractorCost = 200
 let drillCost = 500
@@ -26,6 +27,31 @@ const tractorButton = document.getElementById("tractor")
 const drillButton = document.getElementById("drill")
 
 let interval
+
+const suffixes = [
+    "",
+    "K",
+    "M",
+    "B",
+    "T",
+    "Qa",
+    "Qi",
+    "Sx",
+    "Sp",
+    "Oc",
+    "No",
+    "Dc"
+]
+
+function formatNumber (number) {
+    let index = 0
+    while(number >= 1000) {
+        number /= 1000
+        index++
+    }
+
+    return number.toFixed(2) + suffixes[index]
+}
 
 function saveGame () {
     const saveData = {
@@ -76,19 +102,20 @@ function updateAll() {
     tractorCost = 200 * (1.2 ** tractorAmount)
     drillCost = 500 * (1.2 ** drillAmount)
     upgrade1Cost = 10 * (1.2 ** upgrade1Amount)
-    document.getElementById("totalCoinsEarned").textContent = totalCoinsEarned.toFixed(0)
-    document.getElementById("totalClicks").textContent = totalClicks
+    document.getElementById("totalCoinsEarned").textContent = formatNumber(totalCoinsEarned)
+    document.getElementById("totalClicks").textContent = formatNumber(totalClicks)
     document.getElementById("timePlayed").textContent = formatTime()
-    document.getElementById("coins").textContent = coins.toFixed(0)
-    document.getElementById("upgrade1Amount").textContent = upgrade1Amount.toFixed(0)
-    document.getElementById("upgrade1Cost").textContent = upgrade1Cost.toFixed(0)
-    document.getElementById("minerAmount").textContent = minerAmount.toFixed(0)
-    document.getElementById("minerCost").textContent = minerCost.toFixed(0)
-    document.getElementById("tractorAmount").textContent = tractorAmount.toFixed(0)
-    document.getElementById("tractorCost").textContent = tractorCost.toFixed(0)
-    document.getElementById("drillAmount").textContent = drillAmount.toFixed(0)
-    document.getElementById("drillCost").textContent = drillCost.toFixed(0)
-    document.getElementById("coinsPerSecond").textContent = coinsPerSecond.toFixed(0)
+    document.getElementById("coins").textContent = formatNumber(coins)
+    document.getElementById("upgrade1Amount").textContent = formatNumber(upgrade1Amount)
+    document.getElementById("upgrade1Cost").textContent = formatNumber(upgrade1Cost)
+    document.getElementById("minerAmount").textContent = formatNumber(minerAmount)
+    document.getElementById("minerCost").textContent = formatNumber(minerCost)
+    document.getElementById("tractorAmount").textContent = formatNumber(tractorAmount)
+    document.getElementById("tractorCost").textContent = formatNumber(tractorCost)
+    document.getElementById("drillAmount").textContent = formatNumber(drillAmount)
+    document.getElementById("drillCost").textContent = formatNumber(drillCost)
+    document.getElementById("coinsPerSecond").textContent = formatNumber(coinsPerSecond)
+    document.getElementById("coinsPerClick").textContent = formatNumber(coinsPerClick)
     upgrade1Button.disabled = coins < upgrade1Cost
     minerButton.disabled = coins < minerCost
     tractorButton.disabled = coins < tractorCost
@@ -158,6 +185,7 @@ upgrade1Button.addEventListener("click", () => {
     if (coins >= upgrade1Cost) {
         coins -= upgrade1Cost
         upgrade1Amount += 1
+        coinsPerClick += 1 
         updateAll()
     }
 })
