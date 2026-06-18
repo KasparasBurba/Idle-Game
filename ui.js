@@ -54,7 +54,7 @@ function updateBuildings() {
         document.getElementById(building.id + "Amount").textContent = formatNumber(building.amount)
         document.getElementById(building.id + "Cost").textContent = formatNumber(cost)
 
-        document.getElementById(building.id).disabled = game.coins < cost
+        building.button.disabled = game.coins < cost
     })
 }
 

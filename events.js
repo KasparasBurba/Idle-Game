@@ -11,7 +11,7 @@ upgrades.forEach((upgrade) => {
 })
 
 buildings.forEach((building) => {
-    document.getElementById(building.id).addEventListener("click", () => buyBuilding(building))
+    building.button.addEventListener("click", () => buyBuilding(building))
 })
 
 elements.autoSaveBox.addEventListener("change", () => {

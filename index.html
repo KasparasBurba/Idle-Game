@@ -1,30 +1,43 @@
-<body>
-    <head>
-        <button id="save">
-            Save game
-        </button>
-        <button id="load">
-            Load game
-        </button>
-        <button id="restart">
-            Restart game
-        </button>
-        <label>
-            <input type="checkbox" id="autoSave">
-            Auto save
-        </label>
-    </head>
-    <h1>
+<head>
+    <title>Idle Game</title>  
+</head>
+
+<body> 
+    <header>
+        <h1>
+            <button id="save">
+                Save game
+            </button>
+
+            <button id="load">
+                Load game
+            </button>
+
+            <button id="restart">
+                Restart game
+            </button>
+
+            <label>
+                <input type="checkbox" id="autoSave">
+                Auto save
+            </label>
+        </h1>
+    </header>
+
+    <h2>
         Total coins earned: <span id="totalCoinsEarned">0</span>
         <br>
         Total clicks: <span id="totalClicks">0</span>
         <br>
         Time played: <span id="timePlayed">0</span>
-    </h1>
+    </h2>
+
     <p>
         Coins: <span id="coins">0</span>
     </p>
+
     <button id="steal">Steal</button>
+    
     <p>
         Coins per click: <span id="coinsPerClick">0</span>
         <br>

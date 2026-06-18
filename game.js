@@ -22,18 +22,21 @@ let upgrades = [
 let buildings = [
     {
         id: "miner",
+        button: document.getElementById("miner"),
         amount: 0,
         baseCost: 50,
         income: 1
     },
     {
         id: "tractor",
+        button: document.getElementById("tractor"),
         amount: 0,
         baseCost: 200,
         income: 5
     },
     {
         id: "drill",
+        button: document.getElementById("drill"),
         amount: 0,
         baseCost: 500,
         income: 20
