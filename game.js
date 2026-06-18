@@ -1,219 +1,76 @@
-let coins = 0
-let upgrade1Amount = 0
-let minerAmount = 0
-let tractorAmount = 0
-let drillAmount = 0
-let coinsPerSecond = 0
-let coinsPerClick = 1
-let minerCost = 50
-let tractorCost = 200
-let drillCost = 500
-let upgrade1Cost = 10
-let totalCoinsEarned = 0
-let totalClicks = 0
-let timePlayed = 0
-let seconds = 0
-let minutes = 0
-let hours = 0
-
-const saveButton = document.getElementById("save")
-const loadButton = document.getElementById("load")
-const restartButton = document.getElementById("restart")
-const autoSaveBox = document.getElementById("autoSave")
-const stealButton = document.getElementById("steal")
-const upgrade1Button = document.getElementById("upgrade1Button")
-const minerButton = document.getElementById("miner")
-const tractorButton = document.getElementById("tractor")
-const drillButton = document.getElementById("drill")
-
 let interval
 
-const suffixes = [
-    "",
-    "K",
-    "M",
-    "B",
-    "T",
-    "Qa",
-    "Qi",
-    "Sx",
-    "Sp",
-    "Oc",
-    "No",
-    "Dc"
+const game = {
+    coins: 0,
+    coinsPerSecond: 0,
+    coinsPerClick: 1,
+    totalCoinsEarned: 0,
+    totalClicks: 0,
+    timePlayed: 0
+}
+
+
+let upgrades = [
+    {
+        id: "upgrade1",
+        amount: 0,
+        baseCost: 10,
+        bonus: 1
+    }
 ]
 
-function formatNumber (number) {
-    let index = 0
-    while(number >= 1000) {
-        number /= 1000
-        index++
+let buildings = [
+    {
+        id: "miner",
+        amount: 0,
+        baseCost: 50,
+        income: 1
+    },
+    {
+        id: "tractor",
+        amount: 0,
+        baseCost: 200,
+        income: 5
+    },
+    {
+        id: "drill",
+        amount: 0,
+        baseCost: 500,
+        income: 20
     }
+]
 
-    return number.toFixed(2) + suffixes[index]
-}
+function buyUpgrade(upgrade) {
+    const cost = upgrade.baseCost * (1.2 ** upgrade.amount)
 
-function saveGame () {
-    const saveData = {
-        totalCoinsEarned,
-        totalClicks,
-        coins,
-        upgrade1Amount,
-        minerAmount,
-        tractorAmount,
-        drillAmount
-    }
-
-    const saveString = JSON.stringify(saveData)
-    localStorage.setItem("saveString", saveString)
-}
-
-function loadGame () {
-    const loadString = localStorage.getItem("saveString")
-
-    if (loadString){
-        const loadData = JSON.parse(loadString)
-        totalCoinsEarned = loadData.totalCoinsEarned
-        totalClicks = loadData.totalClicks
-        coins = loadData.coins
-        upgrade1Amount = loadData.upgrade1Amount
-        minerAmount = loadData.minerAmount
-        tractorAmount = loadData.tractorAmount
-        drillAmount = loadData.drillAmount
+    if (game.coins >= cost) {
+        game.coins -= cost
+        upgrade.amount += 1
+        game.coinsPerClick += upgrade.bonus
 
         updateAll()
     }
 }
 
-function restartGame () {
-    localStorage.removeItem("saveString")
-    location.reload()
-}
+function buyBuilding(building) {
+    const cost = building.baseCost * (1.2 ** building.amount)
 
-function autoSave () {
-    interval = setInterval(() => {
-        saveGame();
-        console.log("Game saved")
-    }, 2000)
-}
+    if (game.coins >= cost) {
+        game.coins -= cost
+        building.amount += 1
 
-function updateAll() {
-    minerCost = 50 * (1.2 ** minerAmount)
-    tractorCost = 200 * (1.2 ** tractorAmount)
-    drillCost = 500 * (1.2 ** drillAmount)
-    upgrade1Cost = 10 * (1.2 ** upgrade1Amount)
-    document.getElementById("totalCoinsEarned").textContent = formatNumber(totalCoinsEarned)
-    document.getElementById("totalClicks").textContent = formatNumber(totalClicks)
-    document.getElementById("timePlayed").textContent = formatTime()
-    document.getElementById("coins").textContent = formatNumber(coins)
-    document.getElementById("upgrade1Amount").textContent = formatNumber(upgrade1Amount)
-    document.getElementById("upgrade1Cost").textContent = formatNumber(upgrade1Cost)
-    document.getElementById("minerAmount").textContent = formatNumber(minerAmount)
-    document.getElementById("minerCost").textContent = formatNumber(minerCost)
-    document.getElementById("tractorAmount").textContent = formatNumber(tractorAmount)
-    document.getElementById("tractorCost").textContent = formatNumber(tractorCost)
-    document.getElementById("drillAmount").textContent = formatNumber(drillAmount)
-    document.getElementById("drillCost").textContent = formatNumber(drillCost)
-    document.getElementById("coinsPerSecond").textContent = formatNumber(coinsPerSecond)
-    document.getElementById("coinsPerClick").textContent = formatNumber(coinsPerClick)
-    upgrade1Button.disabled = coins < upgrade1Cost
-    minerButton.disabled = coins < minerCost
-    tractorButton.disabled = coins < tractorCost
-    drillButton.disabled = coins < drillCost
-    console.log(formatTime())
+        updateAll()
+    }
 }
 
 function passiveIncome() {
-    coinsPerSecond = minerAmount + tractorAmount * 5 + drillAmount * 20
-    coins += coinsPerSecond
-    totalCoinsEarned += coinsPerSecond
+    game.coinsPerSecond = 0
+
+    buildings.forEach((building) => {
+        game.coinsPerSecond += building.amount * building.income
+    })
+
+    game.coins += game.coinsPerSecond
+    game.totalCoinsEarned += game.coinsPerSecond
     updateAll()
 }
-
-function formatTime() {
-    hours = Math.floor(timePlayed / 3600)
-    minutes = Math.floor(timePlayed / 60)
-    seconds = timePlayed % 60
-
-    if (hours > 0) {
-        return `${hours}h ${minutes}m ${seconds}s`
-    }
-
-    if (minutes > 0) {
-        return `${minutes}m ${seconds}s`
-    }
-
-    return `${seconds}s`
-}
-
-setInterval(() => {
-    timePlayed +=1
-}, 1000)
-
-saveButton.addEventListener("click", () => {
-    saveGame()
-})
-
-loadButton.addEventListener("click", () => {
-    loadGame()
-})
-
-restartButton.addEventListener("click", () => {
-    restartGame()
-})
-
-autoSaveBox.addEventListener("change", () => {
-    if (autoSaveBox.checked) {
-        autoSave()
-    } else {
-        clearInterval(interval)
-        interval = null
-    }
-})
-
-document.addEventListener("click", () => {
-    totalClicks += 1
-})
-
-stealButton.addEventListener("click", () => {
-    coins += 1 + upgrade1Amount
-    totalCoinsEarned += 1 + upgrade1Amount
-    updateAll()
-})
-
-upgrade1Button.addEventListener("click", () => {
-    if (coins >= upgrade1Cost) {
-        coins -= upgrade1Cost
-        upgrade1Amount += 1
-        coinsPerClick += 1 
-        updateAll()
-    }
-})
-
-minerButton.addEventListener("click", () => {
-    if (coins >= minerCost) {
-        coins -= minerCost
-        minerAmount += 1
-        updateAll()
-    }
-})
-
-tractorButton.addEventListener("click", () => {
-    if (coins >= tractorCost) {
-        coins -= tractorCost
-        tractorAmount += 1
-        updateAll()
-    }
-})
-
-drillButton.addEventListener("click", () => {
-    if (coins >= drillCost) {
-        coins -= drillCost
-        drillAmount += 1
-        updateAll()
-    }
-})
-
-setInterval(passiveIncome, 1000)
-
-loadGame()
