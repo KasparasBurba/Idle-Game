@@ -6,12 +6,8 @@ document.addEventListener("click", () => {
     game.totalClicks += 1
 })
 
-upgrades.forEach((upgrade) => {
-    document.getElementById(upgrade.id).addEventListener("click", () => buyUpgrade(upgrade))
-})
-
-buildings.forEach((building) => {
-    building.button.addEventListener("click", () => buyBuilding(building))
+items.forEach((item) => {
+    document.getElementById(item.id).addEventListener("click", () => buyItem(item))
 })
 
 elements.autoSaveBox.addEventListener("change", () => {

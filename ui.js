@@ -31,30 +31,15 @@ const elements = {
 }
 
 function updateAll() {
-    updateUpgrades()
-    updateBuildings()
+    updateItems()
     updateDisplays()
 }
 
-function updateUpgrades () {
-    upgrades.forEach((upgrade) => {
-        const cost = upgrade.baseCost * (1.2 ** upgrade.amount)
-
-        document.getElementById(upgrade.id + "Amount").textContent = formatNumber(upgrade.amount)
-        document.getElementById(upgrade.id + "Cost").textContent = formatNumber(cost)
-
-        document.getElementById(upgrade.id).disabled = game.coins < cost
-    })
-}
-
-function updateBuildings() {
-    buildings.forEach((building) => {
-        const cost = building.baseCost * (1.2 ** building.amount)
-
-        document.getElementById(building.id + "Amount").textContent = formatNumber(building.amount)
-        document.getElementById(building.id + "Cost").textContent = formatNumber(cost)
-
-        building.button.disabled = game.coins < cost
+function updateItems() {
+    items.forEach((item) => {
+        item.amountElement.textContent = formatNumber(item.amount)
+        item.costElement.textContent = formatNumber(item.cost)
+        item.button.disabled = game.coins < item.cost
     })
 }
 

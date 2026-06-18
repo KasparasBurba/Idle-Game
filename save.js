@@ -1,27 +1,31 @@
 function saveGame () {
     const saveData = {
         game,
-        upgrades,
-        buildings
+        items: items.map((item) => ({
+            id: item.id,
+            amount: item.amount,
+            cost: item.cost
+        }))
     }
 
-    const saveString = JSON.stringify(saveData)
-    localStorage.setItem("saveString", saveString)
+    localStorage.setItem("saveString", JSON.stringify(saveData))
 }
 
 function loadGame () {
     const loadString = localStorage.getItem("saveString")
 
-    if (loadString){
+    if (loadString) {
         const loadData = JSON.parse(loadString)
 
         Object.assign(game, loadData.game)
-        loadData.upgrades.forEach((savedUpgrade, index) => {
-            upgrades[index].amount = savedUpgrade.amount
-        })
 
-        loadData.buildings.forEach((savedBuilding, index) => {
-            buildings[index].amount = savedBuilding.amount
+        loadData.items.forEach((savedItem) => {
+            const item = items.find((item) => item.id === savedItem.id)
+
+            if (item) {
+                item.amount = savedItem.amount
+                item.cost = savedItem.cost
+            }
         })
 
         updateAll()
@@ -34,6 +38,8 @@ function restartGame () {
 }
 
 function autoSave () {
+    if (interval) return
+
     interval = setInterval(() => {
         saveGame();
         console.log("Game saved")
