@@ -49,6 +49,14 @@ function updateDisplays() {
     })
 }
 
+function updateSteal() {
+    if(game.stealCooldown) {
+        elements.stealButton.textContent = `Stealing...\n${game.stealTimeLeft}s`
+    } else {
+        elements.stealButton.textContent = "Steal"
+    }
+}
+
 function formatNumber (number) {
     let index = 0
     while(number >= 1000 && index < suffixes.length - 1) {

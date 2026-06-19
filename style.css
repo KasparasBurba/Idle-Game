@@ -1,3 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    width: 200px
+    background: #1f1f1f;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.game {
+    max-width: 1400px;
+    margin: auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #2b2b2b;
+    border: 1px solid #444;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.game-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px 1fr;
+    gap: 20px;
+}
+
+.coin-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #2b2b2b;
+    border: 1px solid #444;
+    border-radius: 12px;
+}
+
+#steal {
+    width: 240px;
+    height: 240px;
+    border: none;
+    border-radius: 50%;
+    background: #f5c242;
+    color: #222;
+    font-size: 34px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+#steal:hover {
+    transform: scale(1.05);
+}
+
+#steal:active {
+    transform: scale(.96);
+}
+
+.shop {
+    background: #2b2b2b;
+    border: 1px solid #444;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.shop h2 {
+    font-size: 32px;
+}
+
+.shop-button {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #555;
+    border-radius: 10px;
+    background: #3b3b3b;
+    color: white;
+    text-align: left;
+    cursor: pointer;
+    transition: .15s;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.shop-button:hover:not(:disabled) {
+    background: #4b4b4b;
+}
+
+.shop-button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.item-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.item-info {
+    font-size: 15px;
+    color: #cfcfcf;
+}
+
+.stats {
+    grid-column: 1 / 4;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #2b2b2b;
+    border: 1px solid #444;
+    border-radius: 12px;
+    padding: 18px;
+}
+
+.stats h2 {
+    display: none;
+}
+
+.stats p {
+    font-size: 18px;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    background: #2b2b2b;
+    border: 1px solid #444;
+    border-radius: 12px;
+    padding: 18px;
+}
+
+.footer button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #555;
+    color: white;
+    cursor: pointer;
+}
+
+.footer button:hover {
+    background: #666;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }

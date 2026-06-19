@@ -6,7 +6,11 @@ const game = {
     coinsPerClick: 1,
     totalCoinsEarned: 0,
     totalClicks: 0,
-    timePlayed: 0
+    timePlayed: 0,
+
+    stealCooldown: false,
+    stealTimeLeft: 8,
+    stealCooldownTime: 8
 }
 
 let items = [

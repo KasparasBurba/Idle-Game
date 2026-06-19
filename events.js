@@ -20,7 +20,37 @@ elements.autoSaveBox.addEventListener("change", () => {
 })
 
 elements.stealButton.addEventListener("click", () => {
-    game.coins += game.coinsPerClick
-    game.totalCoinsEarned += game.coinsPerClick
-    updateAll()
+    if(!game.stealCooldown) {
+        game.stealCooldown = true
+        elements.stealButton.disabled = true
+        startInterval()
+        updateAll()
+        updateSteal()
+    }
 })
+
+let stealInterval
+
+function startInterval () {
+    if(stealInterval) return
+
+    stealInterval = setInterval(() => {
+        if(!game.stealCooldown) return
+
+        game.stealTimeLeft--
+        updateSteal()
+        
+        if(game.stealTimeLeft <= 0) {
+            clearInterval(stealInterval)
+            stealInterval = null
+
+            game.coins += game.coinsPerClick
+            game.totalCoinsEarned += game.coinsPerClick
+            elements.stealButton.disabled = false
+            game.stealTimeLeft = game.stealCooldownTime
+            game.stealCooldown = false
+            updateAll()
+            updateSteal()
+        }
+    }, 1000)
+}

@@ -18,6 +18,11 @@ function loadGame () {
         const loadData = JSON.parse(loadString)
 
         Object.assign(game, loadData.game)
+        clearInterval(stealInterval)
+        stealInterval = null
+        game.stealCooldown = false
+        game.stealTimeLeft = game.stealCooldownTime
+        elements.stealButton.disabled = false
 
         loadData.items.forEach((savedItem) => {
             const item = items.find((item) => item.id === savedItem.id)
@@ -29,6 +34,7 @@ function loadGame () {
         })
 
         updateAll()
+        updateSteal()
     }
 }
 

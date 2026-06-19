@@ -1,84 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Idle Game</title>  
+    <title>Idle Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body> 
-    <header>
-        <h1>
-            <button id="save">
-                Save game
-            </button>
+<body>
+    <div class="game">
+        <header class="card header">
+            <div>Coins: <span id="coins">0</span></div>
+            <div>CpC: <span id="coinsPerClick">0</span></div>
+            <div>CpS: <span id="coinsPerSecond">0</span></div>
+        </header>
 
-            <button id="load">
-                Load game
-            </button>
+        <main class="game-layout">
+            <section class="shop">
+                <h2>Upgrades</h2>
 
-            <button id="restart">
-                Restart game
-            </button>
+                <button id="upgrade1" class="shop-button">
+                    <span class="item-name">+1 per click</span>
+                    <span class="item-info">Cost: <span id="upgrade1Cost">10</span></span>
+                    <span class="item-info">Amount: <span id="upgrade1Amount">0</span></span>
+                </button>
+            </section>
+
+            <section class="coin-section card">
+                <button id="steal">Steal</button>
+            </section>
+
+            <section class="shop">
+                <h2>Buildings</h2>
+
+                <button id="miner" class="shop-button">
+                    <span class="item-name">Miner</span>
+                    <span class="item-info">+1/s</span>
+                    <span class="item-info">Cost: <span id="minerCost">50</span></span>
+                    <span class="item-info">Amount: <span id="minerAmount">0</span></span>
+                </button>
+
+                <button id="tractor" class="shop-button">
+                    <span class="item-name">Tractor</span>
+                    <span class="item-info">+5/s</span>
+                    <span class="item-info">Cost: <span id="tractorCost">200</span></span>
+                    <span class="item-info">Amount: <span id="tractorAmount">0</span></span>
+                </button>
+
+                <button id="drill" class="shop-button">
+                    <span class="item-name">Drill</span>
+                    <span class="item-info">+20/s</span>
+                    <span class="item-info">Cost: <span id="drillCost">500</span></span>
+                    <span class="item-info">Amount: <span id="drillAmount">0</span></span>
+                </button>
+            </section>
+
+            <section class="card stats">
+                <h2>Statistics</h2>
+                <p>Total coins earned: <span id="totalCoinsEarned">0</span></p>
+                <p>Total clicks: <span id="totalClicks">0</span></p>
+                <p>Time played: <span id="timePlayed">0</span></p>
+            </section>
+        </main>
+
+        <footer class="card footer">
+            <button id="save">Save game</button>
+            <button id="load">Load game</button>
+            <button id="restart">Restart game</button>
 
             <label>
                 <input type="checkbox" id="autoSave">
                 Auto save
             </label>
-        </h1>
-    </header>
+        </footer>
+    </div>
 
-    <h2>
-        Total coins earned: <span id="totalCoinsEarned">0</span>
-        <br>
-        Total clicks: <span id="totalClicks">0</span>
-        <br>
-        Time played: <span id="timePlayed">0</span>
-    </h2>
-
-    <p>
-        Coins: <span id="coins">0</span>
-    </p>
-
-    <button id="steal">Steal</button>
-    
-    <p>
-        Coins per click: <span id="coinsPerClick">0</span>
-        <br>
-        Coins per second: <span id="coinsPerSecond">0</span>
-    </p>
-
-    <button id="upgrade1">
-        +1 per click
-        <br>
-        Cost: <span id="upgrade1Cost">10</span>
-        <br>
-        Amount: <span id="upgrade1Amount">0</span>
-    </button>
-
-    <button id="miner">
-        +1 Miner (+1/s)
-        <br>
-        Cost: <span id="minerCost">50</span>
-        <br>
-        Amount: <span id="minerAmount">0</span>
-    </button>
-
-    <button id="tractor">
-        +1 Tractor (+5/s)
-        <br>
-        Cost: <span id="tractorCost">200</span>
-        <br>
-        Amount: <span id="tractorAmount">0</span>
-    </button>
-
-    <button id="drill">
-        +1 Drill (+20/s)
-        <br>
-        Cost: <span id="drillCost">500</span>
-        <br>
-        Amount: <span id="drillAmount">0</span>
-    </button>
+    <script src="game.js"></script>
+    <script src="ui.js"></script>
+    <script src="save.js"></script>
+    <script src="events.js"></script>
+    <script src="main.js"></script>
 </body>
-
-<script src="game.js"></script>
-<script src="ui.js"></script>
-<script src="save.js"></script>
-<script src="events.js"></script>
-<script src="main.js"></script>
+</html>
