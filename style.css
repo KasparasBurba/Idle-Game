@@ -45,16 +45,23 @@ body {
 }
 
 #steal {
+    --progress: 0%;
+
     width: 240px;
     height: 240px;
     border: none;
     border-radius: 50%;
-    background: #f5c242;
+    background: linear-gradient(
+        to bottom,
+        #3b3b3b var(--progress),
+        #f5c242 var(--progress)
+    );
     color: #222;
     font-size: 34px;
     font-weight: bold;
     cursor: pointer;
     transition: 0.15s;
+
 }
 
 #steal:hover {
@@ -73,6 +80,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+
+    max-height: 520px;
+    overflow-y: auto;
 }
 
 .shop h2 {

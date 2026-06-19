@@ -21,6 +21,7 @@ elements.autoSaveBox.addEventListener("change", () => {
 
 elements.stealButton.addEventListener("click", () => {
     if(!game.stealCooldown) {
+        game.stealTimeLeft = game.stealCooldownTime
         game.stealCooldown = true
         elements.stealButton.disabled = true
         startInterval()
@@ -44,11 +45,12 @@ function startInterval () {
             clearInterval(stealInterval)
             stealInterval = null
 
-            game.coins += game.coinsPerClick
-            game.totalCoinsEarned += game.coinsPerClick
+            game.coins += game.coinsPerClick * game.clickMultiplier
+            game.totalCoinsEarned += game.coinsPerClick * game.clickMultiplier
             elements.stealButton.disabled = false
             game.stealTimeLeft = game.stealCooldownTime
             game.stealCooldown = false
+            game.coins += 10000
             updateAll()
             updateSteal()
         }

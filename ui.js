@@ -18,7 +18,7 @@ const displays = [
     { id: "totalClicks", getValue: () => formatNumber(game.totalClicks) },
     { id: "timePlayed", getValue: () => formatTime() },
     { id: "coinsPerSecond", getValue: () => formatNumber(game.coinsPerSecond) },
-    { id: "coinsPerClick", getValue: () => formatNumber(game.coinsPerClick) },
+    { id: "coinsPerClick", getValue: () => formatNumber(game.coinsPerClick * game.clickMultiplier) },
     { id: "coins", getValue: () => formatNumber(game.coins) }
 ]
 
@@ -40,6 +40,13 @@ function updateItems() {
         item.amountElement.textContent = formatNumber(item.amount)
         item.costElement.textContent = formatNumber(item.cost)
         item.button.disabled = game.coins < item.cost
+
+        if (item.multiElement) {
+            item.multiElement.textContent = formatNumber(item.multi)
+        }
+        if (item.valueElement) {
+            item.valueElement.textContent = item.formatValue()
+        }
     })
 }
 
@@ -50,10 +57,13 @@ function updateDisplays() {
 }
 
 function updateSteal() {
+    const progress = ((game.stealCooldownTime - game.stealTimeLeft) / game.stealCooldownTime) * 100
     if(game.stealCooldown) {
         elements.stealButton.textContent = `Stealing...\n${game.stealTimeLeft}s`
+        elements.stealButton.style.setProperty("--progress", `${progress}%`)
     } else {
         elements.stealButton.textContent = "Steal"
+        elements.stealButton.style.setProperty("--progress", "0%")
     }
 }
 
