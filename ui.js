@@ -107,6 +107,20 @@ function showAchievement (achievement) {
     }, 3000)
 }
 
+function showFloatingText(amount) {
+        const element = document.createElement("div")
+        const container = document.getElementById("floatingTextContainer")
+
+        element.textContent = `+${formatNumber(amount)}`
+        element.classList.add("floating-text")
+
+        container.appendChild(element)
+
+        setTimeout(() => {
+            element.remove()
+        }, 1000)
+}
+
 function formatNumber (number) {
     let index = 0
     while(number >= 1000 && index < suffixes.length - 1) {

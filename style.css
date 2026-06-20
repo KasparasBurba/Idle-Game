@@ -190,6 +190,38 @@ body {
     pointer-events: none;
 }
 
+#floatingTextContainer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.floating-text {
+    position: fixed;
+    left: 52%;
+    top: 35%;
+    color: #3c2a2a;
+    font-size: 44px;
+    font-weight: bold;
+    z-index: 10000;
+    animation-name: floatUp;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        top: 35%;
+    }
+
+    100% {
+        opacity: 0;
+        top: 25%;
+    }
+}
+
 label {
     display: flex;
     align-items: center;

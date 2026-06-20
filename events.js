@@ -45,8 +45,10 @@ function startInterval () {
             clearInterval(stealInterval)
             stealInterval = null
 
-            game.coins += game.coinsPerClick * game.clickMultiplier
-            game.totalCoinsEarned += game.coinsPerClick * game.clickMultiplier
+            const reward = game.coinsPerClick * game.clickMultiplier
+            game.coins += reward
+            showFloatingText(reward)
+            game.totalCoinsEarned += reward
             elements.stealButton.disabled = false
             game.stealTimeLeft = game.stealCooldownTime
             game.stealCooldown = false
