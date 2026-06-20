@@ -168,6 +168,19 @@ body {
     background: #666;
 }
 
+#achievementPopup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background:#2b2b2b;
+    border-radius: 12px;
+    padding: 16px 20px;
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity .3s, transform .3s;
+    pointer-events: none;
+}
+
 label {
     display: flex;
     align-items: center;

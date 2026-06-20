@@ -1,3 +1,9 @@
+const popup = document.getElementById("achievementPopup")
+const achievementName = document.getElementById("achievementName")
+const achievementDesc = document.getElementById("achievementDesc")
+
+let popupTimeout
+
 const suffixes = [
     "",
     "K",
@@ -33,6 +39,7 @@ const elements = {
 function updateAll() {
     updateItems()
     updateDisplays()
+    checkAchievements()
 }
 
 function updateItems() {
@@ -65,6 +72,34 @@ function updateSteal() {
         elements.stealButton.textContent = "Steal"
         elements.stealButton.style.setProperty("--progress", "0%")
     }
+}
+
+function checkAchievements() {
+    achievements.forEach((achievement) => {
+        if(achievement.check()) {
+            showAchievement(achievement)
+            achievement.goal *= achievement.scale
+            achievement.level++
+            achievement.onUnlock()
+        }
+    })
+}
+
+function showAchievement (achievement) {
+    clearTimeout(popupTimeout)
+
+    achievementName.textContent = achievement.name
+    achievementDesc.textContent = achievement.desc()
+
+    popup.style.opacity = "1"
+    popup.style.transform = "translateX(0)"
+    popup.style.pointerEvents = "auto"
+
+    popupTimeout = setTimeout(() => {
+        popup.style.opacity = "0"
+        popup.style.transform = "translateX(30px)"
+        popup.style.pointerEvents = "none"
+    }, 3000)
 }
 
 function formatNumber (number) {

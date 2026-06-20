@@ -50,7 +50,7 @@ function startInterval () {
             elements.stealButton.disabled = false
             game.stealTimeLeft = game.stealCooldownTime
             game.stealCooldown = false
-            game.coins += 10000
+            game.coins += 1000000
             updateAll()
             updateSteal()
         }
