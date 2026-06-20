@@ -330,6 +330,7 @@ function buyItem(item) {
 
             item.cost = item.baseCost * (item.costMulti ** item.amount)
 
+            playSound(sounds.buy)
             updateAll()
         }
     }
@@ -340,6 +341,7 @@ function buyItem(item) {
             item.amount++
             item.cost = item.baseCost * (1.2 ** item.amount)
 
+            playSound(sounds.buy)
             checkMilestone(item)
             updateAll()
         }

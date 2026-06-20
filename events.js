@@ -24,6 +24,7 @@ elements.stealButton.addEventListener("click", () => {
         game.stealTimeLeft = game.stealCooldownTime
         game.stealCooldown = true
         elements.stealButton.disabled = true
+        playSound(sounds.steal)
         startInterval()
         updateAll()
         updateSteal()
@@ -33,7 +34,7 @@ elements.stealButton.addEventListener("click", () => {
 let stealInterval
 
 function startInterval () {
-    if(stealInterval) return
+    if (stealInterval) return
 
     stealInterval = setInterval(() => {
         if(!game.stealCooldown) return
@@ -47,6 +48,7 @@ function startInterval () {
 
             const reward = game.coinsPerClick * game.clickMultiplier
             game.coins += reward
+            playSound(sounds.click)
             showFloatingText(reward)
             game.totalCoinsEarned += reward
             elements.stealButton.disabled = false

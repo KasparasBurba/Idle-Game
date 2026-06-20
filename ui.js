@@ -86,6 +86,8 @@ function checkAchievements() {
             achievement.goal *= achievement.scale
             achievement.level++
             achievement.onUnlock()
+
+            playSound(sounds.achievement)
         }
     })
 }
