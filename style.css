@@ -99,19 +99,28 @@ body {
     text-align: left;
     cursor: pointer;
     transition: .15s;
+    --progress: 0%;
 
+    background: linear-gradient(
+        to right,
+        #4caf50 var(--progress),
+        #3b3b3b var(--progress)
+    );
+
+    transition: 0.1s;
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
 .shop-button:hover:not(:disabled) {
-    background: #4b4b4b;
+    border-color: #888;
+    transform: scale(1.02);
 }
 
 .shop-button:disabled {
-    opacity: .45;
     cursor: not-allowed;
+    filter: brightness(.9);
 }
 
 .item-name {

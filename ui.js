@@ -54,6 +54,11 @@ function updateItems() {
         if (item.valueElement) {
             item.valueElement.textContent = item.formatValue()
         }
+        if (item.incomeElement) {
+            item.incomeElement.textContent = `+${formatNumber(item.income)}/s`
+            const progress = (item.amount - item.previousMilestone) / (item.nextMilestone - item.previousMilestone) * 100
+            item.button.style.setProperty("--progress", `${progress}%`)
+        }
     })
 }
 

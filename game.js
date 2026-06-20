@@ -102,7 +102,10 @@ let items = [
         button: document.getElementById("building1"),
         amountElement: document.getElementById("building1Amount"),
         costElement: document.getElementById("building1Cost"),
+        incomeElement: document.getElementById("building1Income"),
         amount: 0,
+        previousMilestone: 0,
+        nextMilestone: 10,
         baseCost: 50,
         cost:50,
         costMulti: 1.2,
@@ -118,7 +121,10 @@ let items = [
         button: document.getElementById("building2"),
         amountElement: document.getElementById("building2Amount"),
         costElement: document.getElementById("building2Cost"),
+        incomeElement: document.getElementById("building2Income"),
         amount: 0,
+        previousMilestone: 0,
+        nextMilestone: 10,
         baseCost: 200,
         cost: 200,
         costMulti: 1.2,
@@ -134,7 +140,10 @@ let items = [
         button: document.getElementById("building3"),
         amountElement: document.getElementById("building3Amount"),
         costElement: document.getElementById("building3Cost"),
+        incomeElement: document.getElementById("building3Income"),
         amount: 0,
+        previousMilestone: 0,
+        nextMilestone: 10,
         baseCost: 500,
         cost: 500,
         costMulti: 1.2,
@@ -150,7 +159,10 @@ let items = [
         button: document.getElementById("building4"),
         amountElement: document.getElementById("building4Amount"),
         costElement: document.getElementById("building4Cost"),
+        incomeElement: document.getElementById("building4Income"),
         amount: 0,
+        previousMilestone: 0,
+        nextMilestone: 10,
         baseCost: 2500,
         cost: 2500,
         costMulti: 1.2,
@@ -166,7 +178,10 @@ let items = [
         button: document.getElementById("building5"),
         amountElement: document.getElementById("building5Amount"),
         costElement: document.getElementById("building5Cost"),
+        incomeElement: document.getElementById("building5Income"),
         amount: 0,
+        previousMilestone: 0,
+        nextMilestone: 10,
         baseCost: 10000,
         cost: 10000,
         costMulti: 1.2,
@@ -182,7 +197,10 @@ let items = [
         button: document.getElementById("building6"),
         amountElement: document.getElementById("building6Amount"),
         costElement: document.getElementById("building6Cost"),
+        incomeElement: document.getElementById("building6Income"),
         amount: 0,
+        previousMilestone: 0,
+        nextMilestone: 10,
         baseCost: 50000,
         cost: 50000,
         costMulti: 1.2,
@@ -198,7 +216,10 @@ let items = [
         button: document.getElementById("building7"),
         amountElement: document.getElementById("building7Amount"),
         costElement: document.getElementById("building7Cost"),
+        incomeElement: document.getElementById("building7Income"),
         amount: 0,
+        previousMilestone: 0,
+        nextMilestone: 10,
         baseCost: 250000,
         cost: 250000,
         costMulti: 1.2,
@@ -214,7 +235,10 @@ let items = [
         button: document.getElementById("building8"),
         amountElement: document.getElementById("building8Amount"),
         costElement: document.getElementById("building8Cost"),
+        incomeElement: document.getElementById("building8Income"),
         amount: 0,
+        previousMilestone: 0,
+        nextMilestone: 10,
         baseCost: 1000000,
         cost: 1000000,
         costMulti: 1.2,
@@ -316,8 +340,35 @@ function buyItem(item) {
             item.amount++
             item.cost = item.baseCost * (1.2 ** item.amount)
 
+            checkMilestone(item)
             updateAll()
         }
+    }
+}
+
+function checkMilestone(item) {
+    if (item.amount < item.nextMilestone) return
+
+    if (item.nextMilestone === 10) {
+        item.income *= 2
+        item.previousMilestone = 10
+        item.nextMilestone = 25
+    } else if (item.nextMilestone === 25) {
+        item.income *= 3
+        item.previousMilestone = 25
+        item.nextMilestone = 50
+    } else if (item.nextMilestone === 50) {
+        item.income *= 4
+        item.previousMilestone = 50
+        item.nextMilestone = 100
+    } else if (item.nextMilestone === 100) {
+        item.income *= 10
+        item.previousMilestone = 100
+        item.nextMilestone += 100
+    } else {
+        item.income *= 10
+        item.previousMilestone += 100
+        item.nextMilestone +=100
     }
 }
 
