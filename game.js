@@ -257,8 +257,12 @@ const achievements = [
         level: 0,
         goal: 10,
         scale: 10,
+
+        value() {
+            return game.totalClicks
+        },
         check() {
-            return game.totalClicks >= this.goal
+            return this.value() >= this.goal
         },
         onUnlock() {
             game.clickMultiplier *= 1.1
@@ -273,8 +277,12 @@ const achievements = [
         level: 0,
         goal: 100,
         scale: 100,
+
+        value() {
+            return game.totalCoinsEarned
+        },
         check() {
-            return game.totalCoinsEarned >= this.goal
+            return this.value() >= this.goal
         },
         onUnlock() {
             game.clickMultiplier *= 1.1
@@ -290,8 +298,12 @@ const achievements = [
         level: 0,
         goal: 100,
         scale: 10,
+
+        value() {
+            return game.coinsPerSecond
+        },
         check() {
-            return game.coinsPerSecond >= this.goal
+            return this.value() >= this.goal
         },
         onUnlock() {
             game.passiveIncomeMulti *= 1.1
@@ -306,8 +318,12 @@ const achievements = [
         level: 0,
         goal: 60,
         scale: 10,
+
+        value() {
+            return game.timePlayed
+        },
         check() {
-            return game.timePlayed >= this.goal
+            return this.value() >= this.goal
         },
         onUnlock() {
             game.clickMultiplier *= 1.1

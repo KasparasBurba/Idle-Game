@@ -116,6 +116,7 @@
         </main>
 
         <footer class="card footer">
+            <button id="achievementsButton">Achievements</button>
             <button id="save">Save game</button>
             <button id="load">Load game</button>
             <button id="restart">Restart game</button>
@@ -133,6 +134,14 @@
     </div>
 
     <div id="floatingTextContainer"></div>
+
+    <div id="achievementsModal" class="modal hidden">
+        <div class="modal-content">
+            <button id="closeAchievements">X</button>
+            <h2>Achievements</h2>
+            <div id="achievementsList"></div>
+        </div>
+    </div>
 
     <script src="game.js"></script>
     <script src="ui.js"></script>

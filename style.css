@@ -222,6 +222,27 @@ body {
     }
 }
 
+.hidden {
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+}
+
+.modal-content {
+    width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    margin: 80px auto;
+    padding: 20px;
+    background: #2b2b2b;
+    border-radius: 12px;
+}
+
 label {
     display: flex;
     align-items: center;

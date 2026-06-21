@@ -31,6 +31,27 @@ elements.stealButton.addEventListener("click", () => {
     }
 })
 
+let achievementsInterval
+elements.achievementsButton.addEventListener("click", () => {
+    elements.achievementsModal.classList.remove("hidden")
+    updateAchievementsWindow()
+    achievementsInterval = setInterval(() =>{
+        updateAchievementsWindow()
+    }, 1000)
+})
+
+elements.closeAchievements.addEventListener("click", () => {
+    clearInterval(achievementsInterval)
+    elements.achievementsModal.classList.add("hidden")
+})
+
+elements.achievementsModal.addEventListener("click", (event) => {
+    if (event.target === elements.achievementsModal) {
+        clearInterval(achievementsInterval)
+        elements.achievementsModal.classList.add("hidden")
+    }
+})
+
 let stealInterval
 
 function startInterval () {

@@ -22,7 +22,7 @@ const suffixes = [
 const displays = [
     { id: "totalCoinsEarned", getValue: () => formatNumber(game.totalCoinsEarned) },
     { id: "totalClicks", getValue: () => formatNumber(game.totalClicks) },
-    { id: "timePlayed", getValue: () => formatTime() },
+    { id: "timePlayed", getValue: () => formatTime(game.timePlayed) },
     { id: "coinsPerSecond", getValue: () => formatNumber(game.coinsPerSecond) },
     { id: "coinsPerClick", getValue: () => formatNumber(game.coinsPerClick * game.clickMultiplier) },
     { id: "coins", getValue: () => formatNumber(game.coins) }
@@ -33,7 +33,11 @@ const elements = {
     loadButton: document.getElementById("load"),
     restartButton: document.getElementById("restart"),
     autoSaveBox: document.getElementById("autoSave"),
-    stealButton: document.getElementById("steal")
+    stealButton: document.getElementById("steal"),
+    achievementsButton: document.getElementById("achievementsButton"),
+    closeAchievements: document.getElementById("closeAchievements"),
+    achievementsModal: document.getElementById("achievementsModal"),
+    achievementsList: document.getElementById("achievementsList")
 }
 
 function updateAll() {
@@ -109,6 +113,30 @@ function showAchievement (achievement) {
     }, 3000)
 }
 
+function updateAchievementsWindow () {
+    const list = elements.achievementsList
+    list.innerHTML = ""
+
+    achievements.forEach((achievement) => {
+        const element = document.createElement("div")
+        const title = document.createElement("h3")
+        title.textContent = achievement.name
+        element.appendChild(title)
+        const desc = document.createElement("p")
+        desc.textContent = achievement.desc()
+        element.appendChild(desc)
+        const goal = document.createElement("p")
+
+        if(achievement.id === "achiev4") {
+            goal.textContent = `${formatTime(achievement.value())} / ${formatTime(achievement.goal)}`
+        } else {
+            goal.textContent = `${formatNumber(achievement.value())} / ${formatNumber(achievement.goal)}`
+        }
+        
+        element.appendChild(goal)
+        list.appendChild(element)
+    })
+}
 function showFloatingText(amount) {
         const element = document.createElement("div")
         const container = document.getElementById("floatingTextContainer")
@@ -133,10 +161,10 @@ function formatNumber (number) {
     return number.toFixed(2) + suffixes[index]
 }
 
-function formatTime() {
-    let hours = Math.floor(game.timePlayed / 3600)
-    let minutes = Math.floor((game.timePlayed % 3600) / 60)
-    let seconds = game.timePlayed % 60
+function formatTime(time) {
+    let hours = Math.floor(time / 3600)
+    let minutes = Math.floor((time % 3600) / 60)
+    let seconds = time % 60
 
     if (hours > 0) {
         return `${hours}h ${minutes}m ${seconds}s`
