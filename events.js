@@ -1,6 +1,15 @@
-elements.saveButton.addEventListener("click", saveGame)
-elements.loadButton.addEventListener("click", loadGame)
-elements.restartButton.addEventListener("click", restartGame)
+elements.saveButton.addEventListener("click", () => {
+    playSound(sounds.buy)
+    saveGame
+})
+elements.loadButton.addEventListener("click", () => {
+    playSound(sounds.buy)
+    loadGame
+})
+elements.restartButton.addEventListener("click", () => {
+    playSound(sounds.buy)
+    restartGame
+})
 
 document.addEventListener("click", () => {
     game.totalClicks += 1
@@ -11,6 +20,7 @@ items.forEach((item) => {
 })
 
 elements.autoSaveBox.addEventListener("change", () => {
+    playSound(sounds.buy)
     if (elements.autoSaveBox.checked) {
         autoSave()
     } else {
@@ -35,6 +45,7 @@ let achievementsInterval
 elements.achievementsButton.addEventListener("click", () => {
     elements.achievementsModal.classList.remove("hidden")
     updateAchievementsWindow()
+    playSound(sounds.buy)
     achievementsInterval = setInterval(() =>{
         updateAchievementsWindow()
     }, 1000)
@@ -43,12 +54,14 @@ elements.achievementsButton.addEventListener("click", () => {
 elements.closeAchievements.addEventListener("click", () => {
     clearInterval(achievementsInterval)
     elements.achievementsModal.classList.add("hidden")
+    playSound(sounds.click)
 })
 
 elements.achievementsModal.addEventListener("click", (event) => {
     if (event.target === elements.achievementsModal) {
         clearInterval(achievementsInterval)
         elements.achievementsModal.classList.add("hidden")
+        playSound(sounds.buy)
     }
 })
 
@@ -71,6 +84,9 @@ function startInterval () {
             game.coins += reward
             playSound(sounds.click)
             showFloatingText(reward)
+            for (let i = 0; i < 10; i++) {
+                createParticle()
+            }
             game.totalCoinsEarned += reward
             elements.stealButton.disabled = false
             game.stealTimeLeft = game.stealCooldownTime

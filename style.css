@@ -222,6 +222,37 @@ body {
     }
 }
 
+.particle {
+    position: fixed;
+    left: 52%;
+    top: 33%;
+
+    width: 10px;
+    height: 10px;
+
+    background: #f5c242;
+    border-radius: 50%;
+
+    pointer-events: none;
+    z-index: 10000;
+
+    animation-name: particleFloat;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes particleFloat {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(var(--moveX), calc(var(--moveY) * -1));
+    }
+}
+
 .hidden {
     display: none;
 }

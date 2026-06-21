@@ -144,9 +144,11 @@ function updateAchievementsWindow () {
         list.appendChild(element)
     })
 }
+
+const container = document.getElementById("floatingTextContainer")
+
 function showFloatingText(amount) {
         const element = document.createElement("div")
-        const container = document.getElementById("floatingTextContainer")
 
         element.textContent = `+${formatNumber(amount)}`
         element.classList.add("floating-text")
@@ -156,6 +158,24 @@ function showFloatingText(amount) {
         setTimeout(() => {
             element.remove()
         }, 1000)
+}
+
+function createParticle() {
+    const particle = document.createElement("div")
+    particle.classList.add("particle")
+
+    const randomX = Math.random() * 60 - 30
+    particle.style.left = `calc(52% + ${randomX}px)`
+    const drandomX = Math.random() * 60 - 20
+    particle.style.setProperty("--moveX", `${drandomX}px`)
+    const drandomY = Math.random() * 50 
+    particle.style.setProperty("--moveY", `${drandomY}px`)
+
+    container.appendChild(particle)
+
+    setTimeout(() => {
+        particle.remove()
+    }, 1000)
 }
 
 function formatNumber (number) {
