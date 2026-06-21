@@ -119,6 +119,7 @@ function updateAchievementsWindow () {
 
     achievements.forEach((achievement) => {
         const element = document.createElement("div")
+        element.classList.add("achievement-card")
         const title = document.createElement("h3")
         title.textContent = achievement.name
         element.appendChild(title)
@@ -131,6 +132,12 @@ function updateAchievementsWindow () {
             goal.textContent = `${formatTime(achievement.value())} / ${formatTime(achievement.goal)}`
         } else {
             goal.textContent = `${formatNumber(achievement.value())} / ${formatNumber(achievement.goal)}`
+        }
+
+        if(achievement.level <= 0) {
+            element.classList.add("achievement-card-locked")
+        } else {
+            element.classList.add("achievement-card-unlocked")
         }
         
         element.appendChild(goal)
