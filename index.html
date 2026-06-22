@@ -17,30 +17,44 @@
             <section class="shop">
                 <h2>Upgrades</h2>
 
+                <div class="shop-list">
                 <button id="upgrade1" class="shop-button">
-                    <span class="item-name">Double CPC</span>
-                    <span class="item-info">Cost: <span id="upgrade1Cost">5</span></span>
-                    <span class="item-info">Multi: <span id="upgrade1Multi">1</span></span>
-                    <span class="item-info">Amount: <span id="upgrade1Amount">0</span></span>
+                    <div class="item-stats">
+                        <span class="item-name">Double CPC</span>
+                        <span class="item-info">Cost: <span id="upgrade1Cost">5</span></span>
+                        <span class="item-info">Current: <span id="upgrade1Multi">1</span>x</span>
+                        <span class="item-info">Amount: <span id="upgrade1Amount">0</span></span>
+                    </div>
+                    <span id ="up1Desc" class="item-info upDesc"></span>
                 </button>
                 <button id="upgrade2" class="shop-button">
-                    <span class="item-name">Faster steal (-1s)</span>
-                    <span class="item-info">Cost: <span id="upgrade2Cost">10</span></span>
-                    <span class="item-info">Value: <span id="upgrade2Value">0</span></span>
-                    <span class="item-info">Amount: <span id="upgrade2Amount">0</span></span>
+                    <div class="item-stats">
+                        <span class="item-name">Faster steal (-1s)</span>
+                        <span class="item-info">Cost: <span id="upgrade2Cost">10</span></span>
+                        <span class="item-info">Current: <span id="upgrade2Value">0</span></span>
+                        <span class="item-info">Amount: <span id="upgrade2Amount">0</span></span>
+                    </div>
+                    <span id ="up2Desc" class="item-info upDesc"></span>
                 </button>
                 <button id="upgrade3" class="shop-button">
-                    <span class="item-name">Double CPS</span>
-                    <span class="item-info">Cost: <span id="upgrade3Cost">20</span></span>
-                    <span class="item-info">Multi: <span id="upgrade3Multi">1</span></span>
-                    <span class="item-info">Amount: <span id="upgrade3Amount">0</span></span>
+                    <div class="item-stats">
+                        <span class="item-name">Double CPS</span>
+                        <span class="item-info">Cost: <span id="upgrade3Cost">20</span></span>
+                        <span class="item-info">Current: <span id="upgrade3Multi">1</span>x</span>
+                        <span class="item-info">Amount: <span id="upgrade3Amount">0</span></span>
+                    </div>
+                    <span id ="up3Desc" class="item-info upDesc"></span>
                 </button>
                 <button id="upgrade4" class="shop-button">
-                    <span class="item-name">+10 base CPC</span>
-                    <span class="item-info">Cost: <span id="upgrade4Cost">100</span></span>
-                    <span class="item-info">Value: <span id="upgrade4Value">0</span></span>
-                    <span class="item-info">Amount: <span id="upgrade4Amount">0</span></span>
+                    <div class="item-stats">
+                        <span class="item-name">+10 base CPC</span>
+                        <span class="item-info">Cost: <span id="upgrade4Cost">100</span></span>
+                        <span class="item-info">Current: <span id="upgrade4Value">0</span></span>
+                        <span class="item-info">Amount: <span id="upgrade4Amount">0</span></span>
+                    </div>
+                    <span id ="up4Desc" class="item-info upDesc"></span>
                 </button>
+                </div>
             </section>
 
             <section class="coin-section card">
@@ -50,61 +64,167 @@
             <section class="shop">
                 <h2>Buildings</h2>
 
+                <div class="shop-list">
                 <button id="building1" class="shop-button">
-                    <span class="item-name">Miner</span>
-                    <span id="building1Income" class="item-info">+1/s</span>
-                    <span class="item-info">Cost: <span id="building1Cost">50</span></span>
-                    <span class="item-info">Amount: <span id="building1Amount">0</span></span>
+                    <div class="item-stats">
+                        <span class="item-name">Miner</span>
+                        <span class="item-info">
+                            Cost: <span id="building1Cost">50</span>
+                        </span>
+                        <span class="item-info">
+                            Owned: <span id="building1Amount">0</span>
+                        </span>
+                        <span class="item-info">
+                            Next (<span id="building1Reward">2x</span>): 
+                            <span id="building1Goal"> 0/10</span>
+                        </span>
+                        <span id="building1Income" class="item-info">+1/s</span>
+                        <span class="item-info">
+                            Total: <span id="building1Total">+0/s</span>
+                        </span>
+                    </div>
                 </button>
 
                 <button id="building2" class="shop-button">
-                    <span class="item-name">Tractor</span>
-                    <span id="building2Income" class="item-info">+5/s</span>
-                    <span class="item-info">Cost: <span id="building2Cost">200</span></span>
-                    <span class="item-info">Amount: <span id="building2Amount">0</span></span>
+                    <div class="item-stats">
+                        <span class="item-name">Tractor</span>
+                        <span class="item-info">
+                            Cost: <span id="building2Cost">200</span>
+                        </span>
+                        <span class="item-info">
+                            Owned: <span id="building2Amount">0</span>
+                        </span>
+                        <span class="item-info">
+                            Next (<span id="building2Reward">2x</span>): 
+                            <span id="building2Goal"> 0/10</span>
+                        </span>
+                        <span id="building2Income" class="item-info">+5/s</span>
+                        <span class="item-info">
+                            Total: <span id="building2Total">+0/s</span>
+                        </span>
+                    </div>
                 </button>
 
                 <button id="building3" class="shop-button">
-                    <span class="item-name">Drill</span>
-                    <span id="building3Income" class="item-info">+20/s</span>
-                    <span class="item-info">Cost: <span id="building3Cost">500</span></span>
-                    <span class="item-info">Amount: <span id="building3Amount">0</span></span>
+                    <div class="item-stats">
+                        <span class="item-name">Drill</span>
+                        <span class="item-info">
+                            Cost: <span id="building3Cost">500</span>
+                        </span>
+                        <span class="item-info">
+                            Owned: <span id="building3Amount">0</span>
+                        </span>
+                        <span class="item-info">
+                            Next (<span id="building3Reward">2x</span>): 
+                            <span id="building3Goal"> 0/10</span>
+                        </span>
+                        <span id="building3Income" class="item-info">+20/s</span>
+                        <span class="item-info">
+                            Total: <span id="building3Total">+0/s</span>
+                        </span>
+                    </div>
                 </button>
                 
                 <button id="building4" class="shop-button">
-                    <span class="item-name">Factory</span>
-                    <span id="building4Income" class="item-info">+100/s</span>
-                    <span class="item-info">Cost: <span id="building4Cost">2500</span></span>
-                    <span class="item-info">Amount: <span id="building4Amount">0</span></span>
+                    <div class="item-stats">
+                        <span class="item-name">Factory</span>
+                        <span class="item-info">
+                            Cost: <span id="building4Cost">2500</span>
+                        </span>
+                        <span class="item-info">
+                            Owned: <span id="building4Amount">0</span>
+                        </span>
+                        <span class="item-info">
+                            Next (<span id="building4Reward">2x</span>): 
+                            <span id="building4Goal"> 0/10</span>
+                        </span>
+                        <span id="building4Income" class="item-info">+100/s</span>
+                        <span class="item-info">
+                            Total: <span id="building4Total">+0/s</span>
+                        </span>
+                    </div>
                 </button>
 
                 <button id="building5" class="shop-button">
-                    <span class="item-name">Bank</span>
-                    <span id="building5Income" class="item-info">+500/s</span>
-                    <span class="item-info">Cost: <span id="building5Cost">10000</span></span>
-                    <span class="item-info">Amount: <span id="building5Amount">0</span></span>
+                    <div class="item-stats">
+                        <span class="item-name">Bank</span>
+                        <span class="item-info">
+                            Cost: <span id="building5Cost">10000</span>
+                        </span>
+                        <span class="item-info">
+                            Owned: <span id="building5Amount">0</span>
+                        </span>
+                        <span class="item-info">
+                            Next (<span id="building5Reward">2x</span>): 
+                            <span id="building5Goal"> 0/10</span>
+                        </span>
+                        <span id="building5Income" class="item-info">+500/s</span>
+                        <span class="item-info">
+                            Total: <span id="building5Total">+0/s</span>
+                        </span>
+                    </div>
                 </button>
 
                 <button id="building6" class="shop-button">
-                    <span class="item-name">Data Center</span>
-                    <span id="building6Income" class="item-info">+2500/s</span>
-                    <span class="item-info">Cost: <span id="building6Cost">50000</span></span>
-                    <span class="item-info">Amount: <span id="building6Amount">0</span></span>
+                    <div class="item-stats">
+                        <span class="item-name">Data Center</span>
+                        <span class="item-info">
+                            Cost: <span id="building6Cost">50000</span>
+                        </span>
+                        <span class="item-info">
+                            Owned: <span id="building6Amount">0</span>
+                        </span>
+                        <span class="item-info">
+                            Next (<span id="building6Reward">2x</span>): 
+                            <span id="building6Goal"> 0/10</span>
+                        </span>
+                        <span id="building6Income" class="item-info">+2500/s</span>
+                        <span class="item-info">
+                            Total: <span id="building6Total">+0/s</span>
+                        </span>
+                    </div>
                 </button>
 
                 <button id="building7" class="shop-button">
-                    <span class="item-name">Nuclear Plant</span>
-                    <span id="building7Income" class="item-info">+10,000/s</span>
-                    <span class="item-info">Cost: <span id="building7Cost">250000</span></span>
-                    <span class="item-info">Amount: <span id="building7Amount">0</span></span>
+                    <div class="item-stats">
+                        <span class="item-name">Nuclear Plant</span>
+                        <span class="item-info">
+                            Cost: <span id="building7Cost">250000</span>
+                        </span>
+                        <span class="item-info">
+                            Owned: <span id="building7Amount">0</span>
+                        </span>
+                        <span class="item-info">
+                            Next (<span id="building7Reward">2x</span>): 
+                            <span id="building7Goal"> 0/10</span>
+                        </span>
+                        <span id="building7Income" class="item-info">+10,000/s</span>
+                        <span class="item-info">
+                            Total: <span id="building7Total">+0/s</span>
+                        </span>
+                    </div>
                 </button>
 
                 <button id="building8" class="shop-button">
-                    <span class="item-name">Space station</span>
-                    <span id="building8Income" class="item-info">+50,000/s</span>
-                    <span class="item-info">Cost: <span id="building8Cost">1000000</span></span>
-                    <span class="item-info">Amount: <span id="building8Amount">0</span></span>
+                    <div class="item-stats">
+                        <span class="item-name">Space station</span>
+                        <span class="item-info">
+                            Cost: <span id="building8Cost">1000000</span>
+                        </span>
+                        <span class="item-info">
+                            Owned: <span id="building8Amount">0</span>
+                        </span>
+                        <span class="item-info">
+                            Next (<span id="building8Reward">2x</span>): 
+                            <span id="building8Goal"> 0/10</span>
+                        </span>
+                        <span id="building8Income" class="item-info">+50,000/s</span>
+                        <span class="item-info">
+                            Total: <span id="building8Total">+0/s</span>
+                        </span>
+                    </div>
                 </button>
+                </div>
             </section>
 
             <section class="card stats">
@@ -139,6 +259,11 @@
         <div class="modal-content">
             <button id="closeAchievements">X</button>
             <h2>Achievements</h2>
+            <div class="achievement-stats">
+                <p>Total achievements: <span id="totalAchievements"></span></p>
+                <p>Total steal bonus: <span id="achievementsClickBonus"></span>%</p>
+                <p>Total passive bonus: <span id="achievementsPassiveBonus"></span>%</p>
+            </div>
             <div id="achievementsList"></div>
         </div>
     </div>

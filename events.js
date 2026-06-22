@@ -1,14 +1,14 @@
 elements.saveButton.addEventListener("click", () => {
     playSound(sounds.buy)
-    saveGame
+    saveGame()
 })
 elements.loadButton.addEventListener("click", () => {
     playSound(sounds.buy)
-    loadGame
+    loadGame()
 })
 elements.restartButton.addEventListener("click", () => {
     playSound(sounds.buy)
-    restartGame
+    restartGame()
 })
 
 document.addEventListener("click", () => {
@@ -42,8 +42,10 @@ elements.stealButton.addEventListener("click", () => {
 })
 
 let achievementsInterval
+
 elements.achievementsButton.addEventListener("click", () => {
     elements.achievementsModal.classList.remove("hidden")
+    document.body.style.overflow = "hidden"
     updateAchievementsWindow()
     playSound(sounds.buy)
     achievementsInterval = setInterval(() =>{
@@ -54,6 +56,7 @@ elements.achievementsButton.addEventListener("click", () => {
 elements.closeAchievements.addEventListener("click", () => {
     clearInterval(achievementsInterval)
     elements.achievementsModal.classList.add("hidden")
+    document.body.style.overflow = ""
     playSound(sounds.click)
 })
 
@@ -61,6 +64,7 @@ elements.achievementsModal.addEventListener("click", (event) => {
     if (event.target === elements.achievementsModal) {
         clearInterval(achievementsInterval)
         elements.achievementsModal.classList.add("hidden")
+        document.body.style.overflow = ""
         playSound(sounds.buy)
     }
 })

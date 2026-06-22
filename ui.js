@@ -58,10 +58,18 @@ function updateItems() {
         if (item.valueElement) {
             item.valueElement.textContent = item.formatValue()
         }
+        if (item.upDescElement) {
+            item.upDescElement.textContent = item.upDesc
+        }
         if (item.incomeElement) {
             item.incomeElement.textContent = `+${formatNumber(item.income)}/s`
             const progress = (item.amount - item.previousMilestone) / (item.nextMilestone - item.previousMilestone) * 100
             item.button.style.setProperty("--progress", `${progress}%`)
+        }
+        if (item.rewardElement) {
+            item.rewardElement.textContent = `${formatNumber(item.currentReward)}x`
+            item.goalElement.textContent =  `${formatNumber(item.amount)}/${formatNumber(item.nextMilestone)}`
+            item.totalElement.textContent = `+${formatNumber(item.income*item.amount)}/s`
         }
     })
 }
@@ -114,6 +122,10 @@ function showAchievement (achievement) {
 }
 
 function updateAchievementsWindow () {
+    document.getElementById("totalAchievements").textContent = formatNumber(game.achievementsTotal)
+    document.getElementById("achievementsClickBonus").textContent = formatNumber((game.achievementsClickBonus*100)-100)
+    document.getElementById("achievementsPassiveBonus").textContent = formatNumber((game.achievementsPassiveBonus*100)-100)
+
     const list = elements.achievementsList
     list.innerHTML = ""
 
@@ -180,12 +192,16 @@ function createParticle() {
 
 function formatNumber (number) {
     let index = 0
+
     while(number >= 1000 && index < suffixes.length - 1) {
         number /= 1000
         index++
     }
-
-    return number.toFixed(2) + suffixes[index]
+    if (!Number.isInteger(number)) {
+        return number.toFixed(2) + suffixes[index]
+    } else {
+        return number.toFixed(0) + suffixes[index]
+    }
 }
 
 function formatTime(time) {

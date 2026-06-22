@@ -9,6 +9,9 @@ const game = {
     timePlayed: 0,
     clickMultiplier: 1,
     passiveIncomeMulti: 1,
+    achievementsTotal: 0,
+    achievementsClickBonus: 1,
+    achievementsPassiveBonus: 1,
 
     stealCooldown: false,
     stealTimeLeft: 8,
@@ -19,10 +22,12 @@ let items = [
     {
         type: "upgrade",
         id: "upgrade1",
+        upDesc: "Double click power!",
         button: document.getElementById("upgrade1"),
         amountElement: document.getElementById("upgrade1Amount"),
         multiElement: document.getElementById("upgrade1Multi"),
         costElement: document.getElementById("upgrade1Cost"),
+        upDescElement: document.getElementById("up1Desc"),
         amount: 0,
         multi: 1,
         baseCost: 5,
@@ -37,10 +42,12 @@ let items = [
     {
         type: "upgrade",
         id: "upgrade2",
+        upDesc: "Smaller steal cooldown!",
         button: document.getElementById("upgrade2"),
         amountElement: document.getElementById("upgrade2Amount"),
         valueElement: document.getElementById("upgrade2Value"),
         costElement: document.getElementById("upgrade2Cost"),
+        upDescElement: document.getElementById("up2Desc"),
         amount: 0,
         value: 0,
         baseCost: 10,
@@ -59,10 +66,12 @@ let items = [
     {
         type: "upgrade",
         id: "upgrade3",
+        upDesc: "Double passive income!",
         button: document.getElementById("upgrade3"),
         amountElement: document.getElementById("upgrade3Amount"),
         multiElement: document.getElementById("upgrade3Multi"),
         costElement: document.getElementById("upgrade3Cost"),
+        upDescElement: document.getElementById("up3Desc"),
         amount: 0,
         multi: 1,
         baseCost: 20,
@@ -77,10 +86,12 @@ let items = [
     {
         type: "upgrade",
         id: "upgrade4",
+        upDesc: "More base clicks!",
         button: document.getElementById("upgrade4"),
         amountElement: document.getElementById("upgrade4Amount"),
         valueElement: document.getElementById("upgrade4Value"),
         costElement: document.getElementById("upgrade4Cost"),
+        upDescElement: document.getElementById("up4Desc"),
         amount: 0,
         value: 0,
         baseCost: 100,
@@ -103,6 +114,9 @@ let items = [
         amountElement: document.getElementById("building1Amount"),
         costElement: document.getElementById("building1Cost"),
         incomeElement: document.getElementById("building1Income"),
+        rewardElement: document.getElementById("building1Reward"),
+        goalElement: document.getElementById("building1Goal"),
+        totalElement: document.getElementById("building1Total"),
         amount: 0,
         previousMilestone: 0,
         nextMilestone: 10,
@@ -110,6 +124,12 @@ let items = [
         cost:50,
         costMulti: 1.2,
         income: 1,
+        currentReward: 2,
+        reward1: 3,
+        reward2: 4,
+        reward3: 5,
+        reward4: 10,
+        reward5: 10,
 
         onBuy() {
 
@@ -122,6 +142,9 @@ let items = [
         amountElement: document.getElementById("building2Amount"),
         costElement: document.getElementById("building2Cost"),
         incomeElement: document.getElementById("building2Income"),
+        rewardElement: document.getElementById("building2Reward"),
+        goalElement: document.getElementById("building2Goal"),
+        totalElement: document.getElementById("building2Total"),
         amount: 0,
         previousMilestone: 0,
         nextMilestone: 10,
@@ -129,6 +152,12 @@ let items = [
         cost: 200,
         costMulti: 1.2,
         income: 5,
+        currentReward: 2,
+        reward1: 3,
+        reward2: 4,
+        reward3: 5,
+        reward4: 10,
+        reward5: 10,
 
         onBuy() {
             
@@ -141,6 +170,9 @@ let items = [
         amountElement: document.getElementById("building3Amount"),
         costElement: document.getElementById("building3Cost"),
         incomeElement: document.getElementById("building3Income"),
+        rewardElement: document.getElementById("building3Reward"),
+        goalElement: document.getElementById("building3Goal"),
+        totalElement: document.getElementById("building3Total"),
         amount: 0,
         previousMilestone: 0,
         nextMilestone: 10,
@@ -148,6 +180,12 @@ let items = [
         cost: 500,
         costMulti: 1.2,
         income: 20,
+        currentReward: 2,
+        reward1: 3,
+        reward2: 4,
+        reward3: 5,
+        reward4: 10,
+        reward5: 10,
 
         onBuy() {
             
@@ -160,6 +198,9 @@ let items = [
         amountElement: document.getElementById("building4Amount"),
         costElement: document.getElementById("building4Cost"),
         incomeElement: document.getElementById("building4Income"),
+        rewardElement: document.getElementById("building4Reward"),
+        goalElement: document.getElementById("building4Goal"),
+        totalElement: document.getElementById("building4Total"),
         amount: 0,
         previousMilestone: 0,
         nextMilestone: 10,
@@ -167,6 +208,12 @@ let items = [
         cost: 2500,
         costMulti: 1.2,
         income: 100,
+        currentReward: 2,
+        reward1: 3,
+        reward2: 4,
+        reward3: 5,
+        reward4: 10,
+        reward5: 10,
 
         onBuy() {
             
@@ -179,6 +226,9 @@ let items = [
         amountElement: document.getElementById("building5Amount"),
         costElement: document.getElementById("building5Cost"),
         incomeElement: document.getElementById("building5Income"),
+        rewardElement: document.getElementById("building5Reward"),
+        goalElement: document.getElementById("building5Goal"),
+        totalElement: document.getElementById("building5Total"),
         amount: 0,
         previousMilestone: 0,
         nextMilestone: 10,
@@ -186,6 +236,12 @@ let items = [
         cost: 10000,
         costMulti: 1.2,
         income: 500,
+        currentReward: 2,
+        reward1: 3,
+        reward2: 4,
+        reward3: 5,
+        reward4: 10,
+        reward5: 10,
 
         onBuy() {
             
@@ -198,6 +254,9 @@ let items = [
         amountElement: document.getElementById("building6Amount"),
         costElement: document.getElementById("building6Cost"),
         incomeElement: document.getElementById("building6Income"),
+        rewardElement: document.getElementById("building6Reward"),
+        goalElement: document.getElementById("building6Goal"),
+        totalElement: document.getElementById("building6Total"),
         amount: 0,
         previousMilestone: 0,
         nextMilestone: 10,
@@ -205,6 +264,12 @@ let items = [
         cost: 50000,
         costMulti: 1.2,
         income: 2500,
+        currentReward: 2,
+        reward1: 3,
+        reward2: 4,
+        reward3: 5,
+        reward4: 10,
+        reward5: 10,
 
         onBuy() {
             
@@ -217,6 +282,9 @@ let items = [
         amountElement: document.getElementById("building7Amount"),
         costElement: document.getElementById("building7Cost"),
         incomeElement: document.getElementById("building7Income"),
+        rewardElement: document.getElementById("building7Reward"),
+        goalElement: document.getElementById("building7Goal"),
+        totalElement: document.getElementById("building7Total"),
         amount: 0,
         previousMilestone: 0,
         nextMilestone: 10,
@@ -224,6 +292,12 @@ let items = [
         cost: 250000,
         costMulti: 1.2,
         income: 10000,
+        currentReward: 2,
+        reward1: 3,
+        reward2: 4,
+        reward3: 5,
+        reward4: 10,
+        reward5: 10,
 
         onBuy() {
             
@@ -236,6 +310,9 @@ let items = [
         amountElement: document.getElementById("building8Amount"),
         costElement: document.getElementById("building8Cost"),
         incomeElement: document.getElementById("building8Income"),
+        rewardElement: document.getElementById("building8Reward"),
+        goalElement: document.getElementById("building8Goal"),
+        totalElement: document.getElementById("building8Total"),
         amount: 0,
         previousMilestone: 0,
         nextMilestone: 10,
@@ -243,6 +320,12 @@ let items = [
         cost: 1000000,
         costMulti: 1.2,
         income: 50000,
+        currentReward: 2,
+        reward1: 3,
+        reward2: 4,
+        reward3: 5,
+        reward4: 10,
+        reward5: 10,
 
         onBuy() {
             
@@ -266,9 +349,11 @@ const achievements = [
         },
         onUnlock() {
             game.clickMultiplier *= 1.1
+            game.achievementsClickBonus *= 1.1
+            game.achievementsTotal++
         },
         desc() {
-            return `Steal ${formatNumber(this.goal)} times! Steal power +10%`
+            return `Steal ${formatNumber(this.goal)} times! Steal power 1.1x`
         }
     },
     {
@@ -287,9 +372,12 @@ const achievements = [
         onUnlock() {
             game.clickMultiplier *= 1.1
             game.passiveIncomeMulti *= 1.1
+            game.achievementsClickBonus *= 1.1
+            game.achievementsPassiveBonus *= 1.1
+            game.achievementsTotal++
         },
         desc() {
-            return `Steal ${formatNumber(this.goal)} coins! All power +10%`
+            return `Steal ${formatNumber(this.goal)} coins! All power 1.1x`
         }
     },
     {
@@ -307,9 +395,11 @@ const achievements = [
         },
         onUnlock() {
             game.passiveIncomeMulti *= 1.1
+            game.achievementsPassiveBonus *= 1.1
+            game.achievementsTotal++
         },
         desc() {
-            return `Steal ${formatNumber(this.goal)} coins per second! Passive power +10%`
+            return `Steal ${formatNumber(this.goal)} coins per second! Passive power 1.1x`
         }
     },
     {
@@ -328,9 +418,12 @@ const achievements = [
         onUnlock() {
             game.clickMultiplier *= 1.1
             game.passiveIncomeMulti *= 1.1
+            game.achievementsClickBonus *= 1.1
+            game.achievementsPassiveBonus *= 1.1
+            game.achievementsTotal++
         },
         desc() {
-            return `Play for ${formatTime(this.goal)}! All power +10%`
+            return `Play for ${formatTime(this.goal)}! All power 1.1x`
         }
     }
 ]
@@ -368,25 +461,30 @@ function checkMilestone(item) {
     if (item.amount < item.nextMilestone) return
 
     if (item.nextMilestone === 10) {
-        item.income *= 2
+        item.income *= item.currentReward
         item.previousMilestone = 10
         item.nextMilestone = 25
+        item.currentReward = item.reward1
     } else if (item.nextMilestone === 25) {
-        item.income *= 3
+        item.income *= item.currentReward
         item.previousMilestone = 25
         item.nextMilestone = 50
+        item.currentReward = item.reward2
     } else if (item.nextMilestone === 50) {
-        item.income *= 4
+        item.income *= item.currentReward
         item.previousMilestone = 50
         item.nextMilestone = 100
+        item.currentReward = item.reward3
     } else if (item.nextMilestone === 100) {
-        item.income *= 10
+        item.income *= item.currentReward
         item.previousMilestone = 100
         item.nextMilestone += 100
+        item.currentReward = item.reward4
     } else {
-        item.income *= 10
+        item.income *= item.currentReward
         item.previousMilestone += 100
         item.nextMilestone +=100
+        item.currentReward = item.reward5
     }
 }
 

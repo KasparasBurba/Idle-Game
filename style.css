@@ -77,22 +77,34 @@ body {
     border: 1px solid #444;
     border-radius: 12px;
     padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    height: 520px;
+}
+.shop h2 {
+    font-size: 32px;
+    margin: 0 0 15px 0;
+    flex-shrink: 0;
+}
+.shop-list {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+
     display: flex;
     flex-direction: column;
     gap: 15px;
 
-    max-height: 520px;
-    overflow-y: auto;
-}
-
-.shop h2 {
-    font-size: 32px;
+    min-height: 0;
 }
 
 .shop-button {
     width: 100%;
     padding: 16px;
-    border: 1px solid #555;
+    border: 1px solid #538e55;
     border-radius: 10px;
     background: #3b3b3b;
     color: white;
@@ -103,7 +115,7 @@ body {
 
     background: linear-gradient(
         to right,
-        #4caf50 var(--progress),
+        #225e24 var(--progress),
         #3b3b3b var(--progress)
     );
 
@@ -114,13 +126,14 @@ body {
 }
 
 .shop-button:hover:not(:disabled) {
-    border-color: #888;
+    border-color: #538e55;
     transform: scale(1.02);
 }
 
 .shop-button:disabled {
+    border-color: #888;
     cursor: not-allowed;
-    filter: brightness(.9);
+    filter: brightness(.6);
 }
 
 .item-name {
@@ -131,6 +144,17 @@ body {
 .item-info {
     font-size: 15px;
     color: #cfcfcf;
+}
+
+.item-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.upDesc {
+    font-size: 17px;
+    font-weight: 300;
 }
 
 .stats {
@@ -283,6 +307,12 @@ body {
     text-align: center;
 }
 
+.achievement-stats {
+    font-size: 20px;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
 #closeAchievements {
     position: absolute;
     top: 4px;
@@ -310,6 +340,12 @@ body {
 
 #closeAchievements:active {
     transform: scale(.95);
+}
+
+#achievementsList {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
 }
 
 .achievement-card {
