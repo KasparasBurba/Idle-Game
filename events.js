@@ -98,18 +98,26 @@ function startInterval () {
             clearInterval(stealInterval)
             stealInterval = null
 
-            const reward = game.coinsPerClick * game.clickMultiplier
+            let reward = game.coinsPerClick * game.clickMultiplier
+            let isCrit = false
+
+            if(Math.random() < game.critChance) {
+                reward *= game.critMulti
+                isCrit = true
+            }
+
             game.coins += reward
+            game.totalCoinsEarned += reward
+
             playSound(sounds.click)
-            showFloatingText(reward)
+            showFloatingText(reward, isCrit)
             for (let i = 0; i < 10; i++) {
                 createParticle()
             }
-            game.totalCoinsEarned += reward
+
             elements.stealButton.disabled = false
             game.stealTimeLeft = game.stealCooldownTime
             game.stealCooldown = false
-            game.coins += 1000000
             updateAll()
             updateSteal()
         }

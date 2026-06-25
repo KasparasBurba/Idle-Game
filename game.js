@@ -7,6 +7,8 @@ const game = {
     totalCoinsEarned: 0,
     totalClicks: 0,
     timePlayed: 0,
+    critChance: 0.5,
+    critMulti: 5,
     clickMultiplier: 1,
     passiveIncomeMulti: 1,
     achievementsTotal: 0,

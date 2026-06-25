@@ -171,10 +171,14 @@ function offlineEarningsPopup() {
 
 const container = document.getElementById("floatingTextContainer")
 
-function showFloatingText(amount) {
+function showFloatingText(amount, isCrit) {
         const element = document.createElement("div")
 
-        element.textContent = `+${formatNumber(amount)}`
+        if (isCrit) {
+            element.textContent = `CRIT +${formatNumber(amount)}`
+        } else {
+            element.textContent = `+${formatNumber(amount)}`
+        }
         element.classList.add("floating-text")
 
         container.appendChild(element)
