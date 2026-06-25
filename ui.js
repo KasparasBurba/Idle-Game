@@ -41,7 +41,14 @@ const elements = {
     offlineEarningsPopup: document.getElementById("offlineEarningsPopup"),
     offlineEarningsElement: document.getElementById("offlineEarnings"),
     offlineEarningsButton: document.getElementById("offlineEarningsButton"),
-    timeAwayElement: document.getElementById("timeAway")
+    timeAwayElement: document.getElementById("timeAway"),
+    prestigeButton: document.getElementById("prestigeButton"),
+    prestigeModal: document.getElementById("prestigeModal"),
+    prestigeModalClose: document.getElementById("prestigeModalClose"),
+    currentPrestigePoints: document.getElementById("currentPrestigePoints"),
+    prestigePoints: document.getElementById("prestigePoints"),
+    totalPrestigePoints: document.getElementById("totalPrestigePoints"),
+    prestigeConfirmButton: document.getElementById("prestigeConfirm")
 }
 
 function updateAll() {
@@ -91,6 +98,9 @@ function updateDisplays() {
     displays.forEach((display) => {
         document.getElementById(display.id).textContent = display.getValue()
     })
+    if (game.coins >= 1000000) {
+        elements.prestigeButton.classList.remove("hidden")
+    }
 }
 
 function updateSteal() {
@@ -176,6 +186,14 @@ function offlineEarningsPopup() {
 
     elements.offlineEarningsPopup.classList.remove("hidden")
     elements.offlineBackdrop.classList.remove("hidden")
+}
+
+function prestigeStats() {
+    game.prestigePoints = game.totalCoinsEarned / game.prestigePointsFormula
+
+    elements.currentPrestigePoints.textContent = formatNumber(game.currentPrestigePoints)
+    elements.prestigePoints.textContent = formatNumber(game.prestigePoints + game.currentPrestigePoints)
+    elements.totalPrestigePoints.textContent = formatNumber(game.totalPrestigePoints)
 }
 
 const container = document.getElementById("floatingTextContainer")

@@ -58,6 +58,7 @@
             </section>
 
             <section class="coin-section card">
+                <button id="prestigeButton" class="hidden">Prestige</button>
                 <button id="steal">Steal</button>
             </section>
 
@@ -246,6 +247,19 @@
                 Auto save
             </label>
         </footer>
+    </div>
+
+    <div id="prestigeModal" class="modal hidden">
+        <div id="prestigeModalContent" class="modal-content">
+            <h2>Prestige?</h2>
+            <button id="prestigeModalClose">X</button>
+            <div id="prestigeStats">
+                <p>Current PP: <span id="currentPrestigePoints">0</span></p>
+                <p>PP after reset: <span id="prestigePoints">0</span></p>
+                <p>Total PP: <span id="totalPrestigePoints">0</span></p>
+            </div>
+            <button id="prestigeConfirm">Prestige</button>
+        </div>
     </div>
 
     <div id="offlineBackdrop" class="hidden"></div>

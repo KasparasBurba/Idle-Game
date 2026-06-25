@@ -87,6 +87,41 @@ elements.offlineBackdrop.addEventListener("click", () => {
     playSound(sounds.click)
 })
 
+let prestigeInterval
+
+elements.prestigeButton.addEventListener("click", () => {
+    elements.prestigeModal.classList.remove("hidden")
+    prestigeStats()
+
+    setInterval((prestigeInterval) => {
+        prestigeStats()
+    }, 1000)
+})
+
+elements.prestigeModalClose.addEventListener("click", () => {
+    elements.prestigeModal.classList.add("hidden")
+    clearInterval(prestigeInterval)
+})
+
+elements.prestigeConfirmButton.addEventListener("click", () => {
+    game.currentPrestigePoints += game.prestigePoints
+    game.totalPrestigePoints += game.prestigePoints
+    resetGameForPrestige()
+
+    items.forEach((item) => {
+        resetItem(item)
+    })
+
+    postPrestige()
+
+    elements.prestigeButton.classList.add("hidden")
+    updateAll()
+    updateSteal()
+
+    elements.prestigeModal.classList.add("hidden")
+    clearInterval(prestigeInterval)
+})
+
 let stealInterval
 
 function startInterval () {
@@ -110,9 +145,9 @@ function startInterval () {
                 isCrit = true
             }
 
-            game.coins += reward + 1000000000
+            game.coins += reward
             game.totalCoinsEarned += reward
-
+            game.coins += 100000
             playSound(sounds.click)
             showFloatingText(reward, isCrit)
             for (let i = 0; i < 10; i++) {

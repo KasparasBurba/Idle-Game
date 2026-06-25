@@ -15,6 +15,11 @@ const game = {
     achievementsTotal: 0,
     achievementsClickBonus: 1,
     achievementsPassiveBonus: 1,
+    currentPrestigePoints: 0,
+    prestigePoints: 0,
+    totalPrestigePoints: 0,
+    prestigeMultiplier: 0,
+    prestigePointsFormula: 1000000,
 
     stealCooldown: false,
     stealTimeLeft: 8,
@@ -150,6 +155,7 @@ let items = [
         baseCost: 50,
         cost:50,
         costMulti: 1.2,
+        baseIncome: 1,
         income: 1,
         currentReward: 2,
         reward1: 3,
@@ -178,6 +184,7 @@ let items = [
         baseCost: 200,
         cost: 200,
         costMulti: 1.2,
+        baseIncome: 5,
         income: 5,
         currentReward: 2,
         reward1: 3,
@@ -206,6 +213,7 @@ let items = [
         baseCost: 500,
         cost: 500,
         costMulti: 1.2,
+        baseIncome: 20,
         income: 20,
         currentReward: 2,
         reward1: 3,
@@ -234,6 +242,7 @@ let items = [
         baseCost: 2500,
         cost: 2500,
         costMulti: 1.2,
+        baseIncome: 100,
         income: 100,
         currentReward: 2,
         reward1: 3,
@@ -262,6 +271,7 @@ let items = [
         baseCost: 10000,
         cost: 10000,
         costMulti: 1.2,
+        baseIncome: 500,
         income: 500,
         currentReward: 2,
         reward1: 3,
@@ -290,6 +300,7 @@ let items = [
         baseCost: 50000,
         cost: 50000,
         costMulti: 1.2,
+        baseIncome: 2500,
         income: 2500,
         currentReward: 2,
         reward1: 3,
@@ -318,6 +329,7 @@ let items = [
         baseCost: 250000,
         cost: 250000,
         costMulti: 1.2,
+        baseIncome: 10000,
         income: 10000,
         currentReward: 2,
         reward1: 3,
@@ -346,6 +358,7 @@ let items = [
         baseCost: 1000000,
         cost: 1000000,
         costMulti: 1.2,
+        baseIncome: 50000,
         income: 50000,
         currentReward: 2,
         reward1: 3,
@@ -530,4 +543,46 @@ function passiveIncome() {
     game.coins += game.coinsPerSecond
     game.totalCoinsEarned += game.coinsPerSecond
     updateAll()
+}
+
+function resetGameForPrestige() {
+    game.coins = 0
+    game.coinsPerSecond = 0
+    game.coinsPerClick = 1
+    game.clickMultiplier = 1
+    game.passiveIncomeMulti = 1
+    game.stealCooldown = false
+    game.stealTimeLeft = 8
+    game.stealCooldownTime = 8
+    game.prestigepoints = 0
+    stealMaxed = false
+}
+
+function resetItem(item) {
+    item.amount = 0
+    item.cost = item.baseCost
+
+    if (item.type === "upgrade") {
+        if (item.multi !== undefined) {
+            item.multi = 1
+        }
+
+        if (item.value !== undefined) {
+            item.value = 0
+        }
+    }
+
+    if (item.type === "building") {
+        item.previousMilestone = 0
+        item.nextMilestone = 10
+
+        item.currentReward = 2
+
+        item.income = item.baseIncome
+    }
+}
+
+function postPrestige() {
+    game.clickMultiplier = game.achievementsClickBonus
+    game.passiveIncomeMulti = game.achievementsPassiveBonus
 }
