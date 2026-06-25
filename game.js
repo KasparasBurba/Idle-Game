@@ -1,4 +1,5 @@
 let interval
+let stealMaxed = false
 
 const game = {
     coins: 0,
@@ -27,10 +28,12 @@ let items = [
         upDesc: "Double click power!",
         button: document.getElementById("upgrade1"),
         amountElement: document.getElementById("upgrade1Amount"),
+        maxAmountElement: document.getElementById("upgrade1MaxAmount"),
         multiElement: document.getElementById("upgrade1Multi"),
         costElement: document.getElementById("upgrade1Cost"),
         upDescElement: document.getElementById("up1Desc"),
         amount: 0,
+        maxAmount: 1000,
         multi: 1,
         baseCost: 5,
         cost: 5,
@@ -39,6 +42,10 @@ let items = [
         onBuy() {
             this.multi *= 2
             game.clickMultiplier *= 2
+        },
+
+        maxed() {
+
         }
     },
     {
@@ -47,10 +54,12 @@ let items = [
         upDesc: "Smaller steal cooldown!",
         button: document.getElementById("upgrade2"),
         amountElement: document.getElementById("upgrade2Amount"),
+        maxAmountElement: document.getElementById("upgrade2MaxAmount"),
         valueElement: document.getElementById("upgrade2Value"),
         costElement: document.getElementById("upgrade2Cost"),
         upDescElement: document.getElementById("up2Desc"),
         amount: 0,
+        maxAmount: 8,
         value: 0,
         baseCost: 10,
         cost: 10,
@@ -63,6 +72,10 @@ let items = [
         onBuy() {
             this.value++
             game.stealCooldownTime--
+        },
+
+        maxed() {
+            stealMaxed = true
         }
     },
     {
@@ -71,10 +84,12 @@ let items = [
         upDesc: "Double passive income!",
         button: document.getElementById("upgrade3"),
         amountElement: document.getElementById("upgrade3Amount"),
+        maxAmountElement: document.getElementById("upgrade3MaxAmount"),
         multiElement: document.getElementById("upgrade3Multi"),
         costElement: document.getElementById("upgrade3Cost"),
         upDescElement: document.getElementById("up3Desc"),
         amount: 0,
+        maxAmount: 1000,
         multi: 1,
         baseCost: 20,
         cost: 20,
@@ -83,6 +98,10 @@ let items = [
         onBuy() {
             this.multi *= 2
             game.passiveIncomeMulti *= 2
+        },
+
+        maxed() {
+
         }
     },
     {
@@ -91,10 +110,12 @@ let items = [
         upDesc: "More base clicks!",
         button: document.getElementById("upgrade4"),
         amountElement: document.getElementById("upgrade4Amount"),
+        maxAmountElement: document.getElementById("upgrade4MaxAmount"),
         valueElement: document.getElementById("upgrade4Value"),
         costElement: document.getElementById("upgrade4Cost"),
         upDescElement: document.getElementById("up4Desc"),
         amount: 0,
+        maxAmount: 1000,
         value: 0,
         baseCost: 100,
         cost: 100,
@@ -107,6 +128,10 @@ let items = [
         onBuy() {
             this.value += 10
             game.coinsPerClick += 10
+        },
+
+        maxed() {
+
         }
     },
     {
@@ -441,6 +466,9 @@ function buyItem(item) {
 
             item.cost = item.baseCost * (item.costMulti ** item.amount)
 
+            if (item.amount >= item.maxAmount) {
+                item.maxed()
+            }
             playSound(sounds.buy)
             updateAll()
         }

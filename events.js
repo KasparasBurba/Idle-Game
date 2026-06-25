@@ -30,14 +30,18 @@ elements.autoSaveBox.addEventListener("change", () => {
 })
 
 elements.stealButton.addEventListener("click", () => {
-    if(!game.stealCooldown) {
-        game.stealTimeLeft = game.stealCooldownTime
-        game.stealCooldown = true
-        elements.stealButton.disabled = true
-        playSound(sounds.steal)
-        startInterval()
-        updateAll()
-        updateSteal()
+    if (!stealMaxed) {
+        if(!game.stealCooldown) {
+            game.stealTimeLeft = game.stealCooldownTime
+            game.stealCooldown = true
+            elements.stealButton.disabled = true
+            playSound(sounds.steal)
+            startInterval()
+            updateAll()
+            updateSteal()
+        }
+    } else {
+        stealNoCooldown()
     }
 })
 
@@ -106,7 +110,7 @@ function startInterval () {
                 isCrit = true
             }
 
-            game.coins += reward
+            game.coins += reward + 1000000000
             game.totalCoinsEarned += reward
 
             playSound(sounds.click)
@@ -122,4 +126,25 @@ function startInterval () {
             updateSteal()
         }
     }, 1000)
+}
+
+function stealNoCooldown() {
+    let reward = game.coinsPerClick * game.clickMultiplier
+    let isCrit = false
+
+    if(Math.random() < game.critChance) {
+        reward *= game.critMulti
+        isCrit = true
+    }
+
+    game.coins += reward
+    game.totalCoinsEarned += reward
+
+    playSound(sounds.click)
+    showFloatingText(reward, isCrit)
+    for (let i = 0; i < 10; i++) {
+        createParticle()
+    }
+
+    updateAll()
 }

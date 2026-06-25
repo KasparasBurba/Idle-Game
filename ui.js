@@ -56,6 +56,15 @@ function updateItems() {
         item.costElement.textContent = formatNumber(item.cost)
         item.button.disabled = game.coins < item.cost
 
+        if (item.maxAmount) {
+            item.button.disabled = game.coins < item.cost || item.amount >= item.maxAmount
+            if (item.amount >= item.maxAmount) {
+                item.costElement.textContent = "MAXED"
+            }
+        }
+        if (item.maxAmountElement) {
+            item.maxAmountElement.textContent = item.maxAmount
+        }
         if (item.multiElement) {
             item.multiElement.textContent = formatNumber(item.multi)
         }
