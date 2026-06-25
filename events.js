@@ -69,6 +69,20 @@ elements.achievementsModal.addEventListener("click", (event) => {
     }
 })
 
+elements.offlineEarningsButton.addEventListener("click", () => {
+    elements.offlineEarningsPopup.classList.add("hidden")
+    elements.offlineBackdrop.classList.add("hidden")
+
+    playSound(sounds.click)
+})
+
+elements.offlineBackdrop.addEventListener("click", () => {
+    elements.offlineEarningsPopup.classList.add("hidden")
+    elements.offlineBackdrop.classList.add("hidden")
+
+    playSound(sounds.click)
+})
+
 let stealInterval
 
 function startInterval () {

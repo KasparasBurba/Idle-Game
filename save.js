@@ -1,3 +1,6 @@
+let secondsAway
+let offlineEarnings
+
 function saveGame () {
     const saveData = {
         lastSaveTime: Date.now(),
@@ -10,7 +13,7 @@ function saveGame () {
             ...(item.value !== undefined && {value: item.value})
         }))
     }
-    console.log(saveData.lastSaveTime)
+
     localStorage.setItem("saveString", JSON.stringify(saveData))
 }
 
@@ -43,14 +46,18 @@ function loadGame () {
             }
         })
 
-        const secondsAway = Math.floor((Date.now() - loadData.lastSaveTime) / 1000)
-        const offlineEarnings = secondsAway * game.coinsPerSecond
-        game.coins += offlineEarnings
-        game.totalCoinsEarned += offlineEarnings
-
-        console.log(offlineEarnings)
+        secondsAway = Math.floor((Date.now() - loadData.lastSaveTime) / 1000)
+        offlineEarnings = secondsAway * game.coinsPerSecond
+        
         updateAll()
         updateSteal()
+
+        if (secondsAway > 1) {
+            game.coins += offlineEarnings
+            game.totalCoinsEarned += offlineEarnings
+            
+            offlineEarningsPopup()
+        }
     }
 }
 

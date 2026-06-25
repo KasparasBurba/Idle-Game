@@ -246,6 +246,56 @@ body {
     }
 }
 
+#offlineBackdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+}
+
+#offlineEarningsPopup {
+    position: fixed;
+    left: 50%;
+    top: 38%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 24px;
+    background: #2b2b2b;
+    border: 2px solid #f5c242;
+    border-radius: 12px;
+    text-align: center;
+    z-index: 10000;
+}
+
+#offlineEarningsPopup h3 {
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+#offlineEarningsPopup p {
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+
+#offlineEarningsPopup button {
+    display: block;
+    margin: 14px auto 0;
+
+    width: 100px;
+    height: 30px;
+
+    border: none;
+    border-radius: 8px;
+    background: #555;
+    color: white;
+    cursor: pointer;
+}
+
+#offlineEarningsPopup button:hover {
+    background: #666;
+}
+
 .particle {
     position: fixed;
     left: 52%;

@@ -1,7 +1,3 @@
-const popup = document.getElementById("achievementPopup")
-const achievementName = document.getElementById("achievementName")
-const achievementDesc = document.getElementById("achievementDesc")
-
 let popupTimeout
 
 const suffixes = [
@@ -34,10 +30,18 @@ const elements = {
     restartButton: document.getElementById("restart"),
     autoSaveBox: document.getElementById("autoSave"),
     stealButton: document.getElementById("steal"),
+    popup: document.getElementById("achievementPopup"),
+    achievementName: document.getElementById("achievementName"),
+    achievementDesc: document.getElementById("achievementDesc"),
     achievementsButton: document.getElementById("achievementsButton"),
     closeAchievements: document.getElementById("closeAchievements"),
     achievementsModal: document.getElementById("achievementsModal"),
-    achievementsList: document.getElementById("achievementsList")
+    achievementsList: document.getElementById("achievementsList"),
+    offlineBackdrop: document.getElementById("offlineBackdrop"),
+    offlineEarningsPopup: document.getElementById("offlineEarningsPopup"),
+    offlineEarningsElement: document.getElementById("offlineEarnings"),
+    offlineEarningsButton: document.getElementById("offlineEarningsButton"),
+    timeAwayElement: document.getElementById("timeAway")
 }
 
 function updateAll() {
@@ -107,17 +111,17 @@ function checkAchievements() {
 function showAchievement (achievement) {
     clearTimeout(popupTimeout)
 
-    achievementName.textContent = achievement.name
-    achievementDesc.textContent = achievement.desc()
+    elements.achievementName.textContent = achievement.name
+    elements.achievementDesc.textContent = achievement.desc()
 
-    popup.style.opacity = "1"
-    popup.style.transform = "translateX(0)"
-    popup.style.pointerEvents = "auto"
+    elements.popup.style.opacity = "1"
+    elements.popup.style.transform = "translateX(0)"
+    elements.popup.style.pointerEvents = "auto"
 
     popupTimeout = setTimeout(() => {
-        popup.style.opacity = "0"
-        popup.style.transform = "translateX(30px)"
-        popup.style.pointerEvents = "none"
+        elements.popup.style.opacity = "0"
+        elements.popup.style.transform = "translateX(30px)"
+        elements.popup.style.pointerEvents = "none"
     }, 3000)
 }
 
@@ -155,6 +159,14 @@ function updateAchievementsWindow () {
         element.appendChild(goal)
         list.appendChild(element)
     })
+}
+
+function offlineEarningsPopup() {
+    elements.timeAwayElement.textContent = formatTime(secondsAway)
+    elements.offlineEarningsElement.textContent = formatNumber(offlineEarnings)
+
+    elements.offlineEarningsPopup.classList.remove("hidden")
+    elements.offlineBackdrop.classList.remove("hidden")
 }
 
 const container = document.getElementById("floatingTextContainer")
