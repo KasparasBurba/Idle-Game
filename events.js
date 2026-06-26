@@ -77,7 +77,7 @@ elements.achievementsButton.addEventListener("click", () => {
     document.body.style.overflow = "hidden"
     updateAchievementsWindow()
     playSound(sounds.buy)
-    achievementsInterval = setInterval(() =>{
+    achievementsInterval = setInterval(() => {
         updateAchievementsWindow()
     }, 1000)
 })
@@ -95,6 +95,34 @@ elements.achievementsModal.addEventListener("click", (event) => {
         elements.achievementsModal.classList.add("hidden")
         document.body.style.overflow = ""
         playSound(sounds.buy)
+    }
+})
+
+let prestigeUpgradesInterval
+
+elements.prestigeUpgradesButton.addEventListener("click", () => {
+    elements.prestigeUpgradesModal.classList.remove("hidden")
+    document.body.style.overflow = "hidden"
+    updatePrestigeUpgradeWindow()
+    playSound(sounds.buy)
+    prestigeUpgradesInterval = setInterval (() => {
+        updatePrestigeUpgradeWindow()
+    }, 1000)
+})
+
+elements.closePrestigeModal.addEventListener("click", () => {
+    clearInterval(prestigeUpgradesInterval)
+    elements.prestigeUpgradesModal.classList.add("hidden")
+    document.body.style.overflow = ""
+    playSound(sounds.click)
+})
+
+elements.prestigeUpgradesModal.addEventListener("click", (event) => {
+    if (event.target === elements.prestigeUpgradesModal) {
+        clearInterval(prestigeUpgradesInterval)
+        elements.prestigeUpgradesModal.classList.add("hidden")
+        document.body.style.overflow = ""
+        playSound(sounds.click)
     }
 })
 
@@ -174,7 +202,7 @@ function startInterval () {
             clearInterval(stealInterval)
             stealInterval = null
 
-            let reward = game.coinsPerClick * game.clickMultiplier
+            let reward = game.coinsPerClick * game.clickMultiplier * game.prestigeClickMulti
             let isCrit = false
 
             if(Math.random() < game.critChance) {
@@ -201,7 +229,7 @@ function startInterval () {
 }
 
 function stealNoCooldown() {
-    let reward = game.coinsPerClick * game.clickMultiplier
+    let reward = game.coinsPerClick * game.clickMultiplier * game.prestigeClickMulti
     let isCrit = false
 
     if(Math.random() < game.critChance) {

@@ -23,6 +23,9 @@ const game = {
     prestigeMultiplier: 0.1,
     prestigePointsFormula: 1000000,
     prestigeBonus: 1,
+    prestigeClickMulti: 1,
+    prestigePassiveMulti: 1,
+    totalPrestigeUpgrades: 0,
 
     stealCooldown: false,
     stealTimeLeft: 8,
@@ -40,6 +43,7 @@ let items = [
         multiElement: document.getElementById("upgrade1Multi"),
         costElement: document.getElementById("upgrade1Cost"),
         upDescElement: document.getElementById("up1Desc"),
+        baseAmount: 0,
         amount: 0,
         maxAmount: 1000,
         multi: 1,
@@ -66,6 +70,7 @@ let items = [
         valueElement: document.getElementById("upgrade2Value"),
         costElement: document.getElementById("upgrade2Cost"),
         upDescElement: document.getElementById("up2Desc"),
+        baseAmount: 0,
         amount: 0,
         maxAmount: 8,
         value: 0,
@@ -96,6 +101,7 @@ let items = [
         multiElement: document.getElementById("upgrade3Multi"),
         costElement: document.getElementById("upgrade3Cost"),
         upDescElement: document.getElementById("up3Desc"),
+        baseAmount: 0,
         amount: 0,
         maxAmount: 1000,
         multi: 1,
@@ -122,6 +128,7 @@ let items = [
         valueElement: document.getElementById("upgrade4Value"),
         costElement: document.getElementById("upgrade4Cost"),
         upDescElement: document.getElementById("up4Desc"),
+        baseAmount: 0,
         amount: 0,
         maxAmount: 1000,
         value: 0,
@@ -152,6 +159,7 @@ let items = [
         rewardElement: document.getElementById("building1Reward"),
         goalElement: document.getElementById("building1Goal"),
         totalElement: document.getElementById("building1Total"),
+        baseAmount: 0,
         amount: 0,
         previousMilestone: 0,
         nextMilestone: 10,
@@ -181,6 +189,7 @@ let items = [
         rewardElement: document.getElementById("building2Reward"),
         goalElement: document.getElementById("building2Goal"),
         totalElement: document.getElementById("building2Total"),
+        baseAmount: 0,
         amount: 0,
         previousMilestone: 0,
         nextMilestone: 10,
@@ -210,6 +219,7 @@ let items = [
         rewardElement: document.getElementById("building3Reward"),
         goalElement: document.getElementById("building3Goal"),
         totalElement: document.getElementById("building3Total"),
+        baseAmount: 0,
         amount: 0,
         previousMilestone: 0,
         nextMilestone: 10,
@@ -239,6 +249,7 @@ let items = [
         rewardElement: document.getElementById("building4Reward"),
         goalElement: document.getElementById("building4Goal"),
         totalElement: document.getElementById("building4Total"),
+        baseAmount: 0,
         amount: 0,
         previousMilestone: 0,
         nextMilestone: 10,
@@ -268,6 +279,7 @@ let items = [
         rewardElement: document.getElementById("building5Reward"),
         goalElement: document.getElementById("building5Goal"),
         totalElement: document.getElementById("building5Total"),
+        baseAmount: 0,
         amount: 0,
         previousMilestone: 0,
         nextMilestone: 10,
@@ -297,6 +309,7 @@ let items = [
         rewardElement: document.getElementById("building6Reward"),
         goalElement: document.getElementById("building6Goal"),
         totalElement: document.getElementById("building6Total"),
+        baseAmount: 0,
         amount: 0,
         previousMilestone: 0,
         nextMilestone: 10,
@@ -326,6 +339,7 @@ let items = [
         rewardElement: document.getElementById("building7Reward"),
         goalElement: document.getElementById("building7Goal"),
         totalElement: document.getElementById("building7Total"),
+        baseAmount: 0,
         amount: 0,
         previousMilestone: 0,
         nextMilestone: 10,
@@ -355,6 +369,7 @@ let items = [
         rewardElement: document.getElementById("building8Reward"),
         goalElement: document.getElementById("building8Goal"),
         totalElement: document.getElementById("building8Total"),
+        baseAmount: 0,
         amount: 0,
         previousMilestone: 0,
         nextMilestone: 10,
@@ -372,6 +387,94 @@ let items = [
 
         onBuy() {
             
+        }
+    }
+]
+
+const prestigeUpgrades = [
+    {
+        id: "prestigeUpgrade1",
+        name: "+1% Bonus per PP",
+        level: 0,
+        maxLevel: 10,
+        isMaxed: false,
+        baseCost: 10,
+        cost: 10,
+        costMulti: 10,
+
+        onBuy() {
+            game.prestigeBonus += 0.01
+            game.clickMultiplier *= 1.01 * game.totalPrestigePoints
+            game.passiveIncomeMulti *= 1.01 * game.totalPrestigePoints
+            game.totalPrestigeUpgrades++
+        },
+        maxed() {
+            this.isMaxed = true
+        }
+    },
+    {
+        id: "prestigeUpgrade2",
+        name: "-1s Steal cooldown",
+        level: 0,
+        maxLevel: 8,
+        isMaxed: false,
+        baseCost: 1,
+        cost: 1,
+        costMulti: 100,
+        
+        onBuy() {
+            const upgrade = items.find((item) => item.id === "upgrade2")
+
+            if (upgrade) {
+                upgrade.baseAmount += 1
+                upgrade.value++
+                game.stealCooldownTime--
+                if (upgrade.amount < upgrade.baseAmount) {
+                    upgrade.amount = upgrade.baseAmount
+                }
+            }
+
+            game.totalPrestigeUpgrades++
+        },
+        maxed() {
+            this.isMaxed = true
+            stealMaxed = true
+        }
+    },
+    {
+        id: "prestigeUpgrade3",
+        name: "+10% Click power (additive)",
+        level: 0,
+        maxLevel: 1000,
+        isMaxed: false,
+        baseCost: 10,
+        cost: 10,
+        costMulti: 1.4,
+
+        onBuy() {
+            game.prestigeClickMulti += 0.1
+            game.totalPrestigeUpgrades++
+        },
+        maxed() {
+            this.isMaxed = true
+        }
+    },
+    {
+        id: "prestigeUpgrade4",
+        name: "+10% Passive power (additive)",
+        level: 0,
+        maxLevel: 1000,
+        isMaxed: false,
+        baseCost: 10,
+        cost: 10,
+        costMulti: 1.4,
+
+        onBuy() {
+            game.prestigePassiveMulti += 0.1
+            game.totalPrestigeUpgrades++
+        },
+        maxed() {
+            this.isMaxed = true
         }
     }
 ]
@@ -534,12 +637,29 @@ function checkMilestone(item) {
     }
 }
 
+function buyPrestigeUpgrade(upgrade) {
+    if (game.currentPrestigePoints >= upgrade.cost) {
+        game.currentPrestigePoints -= upgrade.cost
+        upgrade.level++
+        upgrade.onBuy()
+
+        upgrade.cost = upgrade.baseCost * (upgrade.costMulti ** upgrade.level)
+
+        if (upgrade.level >= upgrade.maxLevel) {
+            upgrade.maxed()
+        }
+        playSound(sounds.buy)
+        updatePrestigeUpgradeWindow()
+    }
+}
+
 function passiveIncome() {
     game.coinsPerSecond = 0
 
     items.forEach((item) => {
         if (item.type === "building") {
-            game.coinsPerSecond += item.amount * item.income * game.passiveIncomeMulti
+            const reward = item.amount * item.income * game.passiveIncomeMulti * game.prestigePassiveMulti
+            game.coinsPerSecond += reward
         }
     })
 
@@ -562,7 +682,7 @@ function resetGameForPrestige() {
 }
 
 function resetItem(item) {
-    item.amount = 0
+    item.amount = item.baseAmount
     item.cost = item.baseCost
 
     if (item.type === "upgrade") {
@@ -586,6 +706,6 @@ function resetItem(item) {
 }
 
 function postPrestige() {
-    game.clickMultiplier = game.achievementsClickBonus * game.prestigeBonus
-    game.passiveIncomeMulti = game.achievementsPassiveBonus * game.prestigeBonus
+    game.clickMultiplier = game.achievementsClickBonus * (game.prestigeBonus * game.totalPrestigePoints)
+    game.passiveIncomeMulti = game.achievementsPassiveBonus * (game.prestigeBonus * game.totalPrestigePoints)
 }

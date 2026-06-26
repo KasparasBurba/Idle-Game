@@ -62,7 +62,8 @@
             </section>
 
             <section class="coin-section card">
-                <button id="prestigeButton" class="hidden">Prestige</button>
+                <button id="prestigeButton" class ="hidden">Prestige</button>
+                <button id="prestigeUpgradesButton" class="hidden">Spend PP</button>
                 <button id="steal">Steal</button>
             </section>
 
@@ -255,6 +256,17 @@
         </div>
     </div>
 
+    <div id="prestigeUpgradesModal" class="modal hidden">
+        <div class="modal-content">
+            <button id="closePrestigeModal">X</button>
+            <h2>PP Upgrades</h2>
+            <div class="prestigeUpgrades-stats">
+                <p>Current PP: <span id="prestigeUpgradesCurrentPP">0</span></p>
+                <p>Total upgrades purchased: <span id="totalPrestigeUpgrades">0</span></p>
+            </div>
+            <div id="prestigeUpgradesList"></div>
+        </div>
+    </div>
     
     <div id="menuModal" class="modal hidden">
         <div class="modal-content">

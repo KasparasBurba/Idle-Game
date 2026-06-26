@@ -297,6 +297,26 @@ body {
     transform: scale(.95);
 }
 
+#prestigeUpgradesButton {
+    position: absolute;
+    top: 70px;
+    padding: 1px 2px;
+    width: 200px;
+    height: 50px;
+    font-size: 26px;
+    border: 2px solid rgb(7, 94, 1);
+    border-radius: 8px;
+    background: #74150a;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    text-align:center;
+}
+
+#prestigeUpgradesButton:hover {
+    transform: scale(1.02);
+}
+
 .shop {
     background: #2b2b2b;
     border: 1px solid #444;

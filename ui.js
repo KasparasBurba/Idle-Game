@@ -20,7 +20,7 @@ const displays = [
     { id: "totalClicks", getValue: () => formatNumber(game.totalClicks) },
     { id: "timePlayed", getValue: () => formatTime(game.timePlayed) },
     { id: "coinsPerSecond", getValue: () => formatNumber(game.coinsPerSecond) },
-    { id: "coinsPerClick", getValue: () => formatNumber(game.coinsPerClick * game.clickMultiplier) },
+    { id: "coinsPerClick", getValue: () => formatNumber(game.coinsPerClick * game.clickMultiplier * game.prestigeClickMulti) },
     { id: "coins", getValue: () => formatNumber(game.coins) }
 ]
 
@@ -51,6 +51,10 @@ const elements = {
     prestigeConfirmButton: document.getElementById("prestigeConfirm"),
     prestigeMultiplier: document.getElementById("prestigeMultiplier"),
     prestigeFormula: document.getElementById("prestigeFormula"),
+    prestigeUpgradesButton: document.getElementById("prestigeUpgradesButton"),
+    prestigeUpgradesModal: document.getElementById("prestigeUpgradesModal"),
+    closePrestigeModal: document.getElementById("closePrestigeModal"),
+    prestigeUpgradesList: document.getElementById("prestigeUpgradesList"),
     menuButton: document.getElementById("menu"),
     menuModal: document.getElementById("menuModal"),
     closeMenu: document.getElementById("closeMenu"),
@@ -107,6 +111,8 @@ function updateDisplays() {
     })
     if (game.coins >= 1000000) {
         elements.prestigeButton.classList.remove("hidden")
+    } if (game.totalPrestigePoints > 0) {
+        elements.prestigeUpgradesButton.classList.remove("hidden")
     }
 }
 
@@ -151,6 +157,40 @@ function showAchievement (achievement) {
     }, 3000)
 }
 
+function updatePrestigeUpgradeWindow() {
+    document.getElementById("prestigeUpgradesCurrentPP").textContent = formatNumber(game.currentPrestigePoints)
+    document.getElementById("totalPrestigeUpgrades").textContent = formatNumber(game.totalPrestigeUpgrades)
+
+    const list = elements.prestigeUpgradesList
+    list.innerHTML = ""
+
+    prestigeUpgrades.forEach((upgrade) => {
+        const element = document.createElement("button")
+        const name = document.createElement("h3")
+        const cost = document.createElement("p")
+        const level = document.createElement("p")
+        element.classList.add("prestigeUpgrade-card")
+        name.textContent = upgrade.name
+        cost.textContent = `Cost: ${formatNumber(upgrade.cost)}`
+        level.textContent = `Level: ${upgrade.level}/${upgrade.maxLevel}`
+        element.appendChild(name)
+        element.appendChild(cost)
+        element.appendChild(level)
+
+        if (upgrade.cost > game.currentPrestigePoints || upgrade.isMaxed) {
+            element.classList.add("prestigeUpgrade-locked")
+        } else {
+            element.classList.add("prestigeUpgrade-unlocked")
+            element.addEventListener("click", () => {
+                buyPrestigeUpgrade(upgrade)
+                updatePrestigeUpgradeWindow()
+            })
+        }
+
+        list.appendChild(element)
+    })
+}
+
 function updateAchievementsWindow () {
     document.getElementById("totalAchievements").textContent = formatNumber(game.achievementsTotal)
     document.getElementById("achievementsClickBonus").textContent = formatNumber((game.achievementsClickBonus*100)-100)
@@ -161,15 +201,15 @@ function updateAchievementsWindow () {
 
     achievements.forEach((achievement) => {
         const element = document.createElement("div")
-        element.classList.add("achievement-card")
         const title = document.createElement("h3")
-        title.textContent = achievement.name
-        element.appendChild(title)
         const desc = document.createElement("p")
-        desc.textContent = achievement.desc()
-        element.appendChild(desc)
         const goal = document.createElement("p")
-
+        element.classList.add("achievement-card")
+        title.textContent = achievement.name
+        desc.textContent = achievement.desc()
+        element.appendChild(title)
+        element.appendChild(desc)
+        
         if(achievement.id === "achiev4") {
             goal.textContent = `${formatTime(achievement.value())} / ${formatTime(achievement.goal)}`
         } else {
