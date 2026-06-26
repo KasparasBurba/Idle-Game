@@ -18,8 +18,9 @@ const game = {
     currentPrestigePoints: 0,
     prestigePoints: 0,
     totalPrestigePoints: 0,
-    prestigeMultiplier: 0,
+    prestigeMultiplier: 0.1,
     prestigePointsFormula: 1000000,
+    prestigeBonus: 1,
 
     stealCooldown: false,
     stealTimeLeft: 8,
@@ -583,6 +584,6 @@ function resetItem(item) {
 }
 
 function postPrestige() {
-    game.clickMultiplier = game.achievementsClickBonus
-    game.passiveIncomeMulti = game.achievementsPassiveBonus
+    game.clickMultiplier = game.achievementsClickBonus * game.prestigeBonus
+    game.passiveIncomeMulti = game.achievementsPassiveBonus * game.prestigeBonus
 }

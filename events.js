@@ -90,6 +90,7 @@ elements.offlineBackdrop.addEventListener("click", () => {
 let prestigeInterval
 
 elements.prestigeButton.addEventListener("click", () => {
+    playSound(sounds.buy)
     elements.prestigeModal.classList.remove("hidden")
     prestigeStats()
 
@@ -99,13 +100,16 @@ elements.prestigeButton.addEventListener("click", () => {
 })
 
 elements.prestigeModalClose.addEventListener("click", () => {
+    playSound(sounds.click)
     elements.prestigeModal.classList.add("hidden")
     clearInterval(prestigeInterval)
 })
 
 elements.prestigeConfirmButton.addEventListener("click", () => {
+    playSound(sounds.click)
     game.currentPrestigePoints += game.prestigePoints
     game.totalPrestigePoints += game.prestigePoints
+    game.prestigeBonus += game.prestigePoints * game.prestigeMultiplier
     resetGameForPrestige()
 
     items.forEach((item) => {
@@ -120,6 +124,14 @@ elements.prestigeConfirmButton.addEventListener("click", () => {
 
     elements.prestigeModal.classList.add("hidden")
     clearInterval(prestigeInterval)
+})
+
+elements.prestigeModal.addEventListener("click", (event) => {
+    if (event.target === elements.prestigeModal) {
+        playSound(sounds.click)
+        elements.prestigeModal.classList.add("hidden")
+        clearInterval(prestigeInterval)
+    }
 })
 
 let stealInterval

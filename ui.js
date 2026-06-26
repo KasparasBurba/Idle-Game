@@ -48,7 +48,9 @@ const elements = {
     currentPrestigePoints: document.getElementById("currentPrestigePoints"),
     prestigePoints: document.getElementById("prestigePoints"),
     totalPrestigePoints: document.getElementById("totalPrestigePoints"),
-    prestigeConfirmButton: document.getElementById("prestigeConfirm")
+    prestigeConfirmButton: document.getElementById("prestigeConfirm"),
+    prestigeMultiplier: document.getElementById("prestigeMultiplier"),
+    prestigeFormula: document.getElementById("prestigeFormula")
 }
 
 function updateAll() {
@@ -192,6 +194,8 @@ function prestigeStats() {
     game.prestigePoints = game.totalCoinsEarned / game.prestigePointsFormula
 
     elements.currentPrestigePoints.textContent = formatNumber(game.currentPrestigePoints)
+    elements.prestigeMultiplier.textContent = formatNumber(game.prestigeMultiplier)
+    elements.prestigeFormula.textContent = formatNumber(game.currentPrestigePoints * game.prestigeMultiplier)
     elements.prestigePoints.textContent = formatNumber(game.prestigePoints + game.currentPrestigePoints)
     elements.totalPrestigePoints.textContent = formatNumber(game.totalPrestigePoints)
 }
