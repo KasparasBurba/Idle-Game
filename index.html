@@ -8,9 +8,13 @@
 <body>
     <div class="game">
         <header class="card header">
-            <div>Coins: <span id="coins">0</span></div>
-            <div>CpC: <span id="coinsPerClick">0</span></div>
-            <div>CpS: <span id="coinsPerSecond">0</span></div>
+            <button id="menu">☰</button>
+
+            <div class="header-stats">
+                <div>Coins: <span id="coins">0</span></div>
+                <div>CpC: <span id="coinsPerClick">0</span></div>
+                <div>CpS: <span id="coinsPerSecond">0</span></div>
+            </div>
         </header>
 
         <main class="game-layout">
@@ -236,17 +240,6 @@
             </section>
         </main>
 
-        <footer class="card footer">
-            <button id="achievementsButton">Achievements</button>
-            <button id="save">Save game</button>
-            <button id="load">Load game</button>
-            <button id="restart">Restart game</button>
-
-            <label>
-                <input type="checkbox" id="autoSave">
-                Auto save
-            </label>
-        </footer>
     </div>
 
     <div id="prestigeModal" class="modal hidden">
@@ -259,6 +252,34 @@
                 <p>Total PP: <span id="totalPrestigePoints">0</span></p>
             </div>
             <button id="prestigeConfirm">Prestige</button>
+        </div>
+    </div>
+
+    
+    <div id="menuModal" class="modal hidden">
+        <div class="modal-content">
+            <button id="closeMenu">X</button>
+            <h2>Menu</h2>
+            <label>
+                Sound volume
+                <input id="soundVolume" type="range" min="0" max="1" step="0.01" value="1">
+            </label>
+
+            <label class="menu-checkbox">
+                <span>Mute sound</span>
+                <input id="muteSound" type="checkbox">
+            </label>
+
+            <button id="achievementsButton">Achievements</button>
+            <button id="save">Save</button>
+            <button id="load">Load</button>
+
+            <label class="menu-checkbox">
+                <span>Auto save</span>
+                <input type="checkbox" id="autoSave">
+            </label>
+
+            <button id="restart">Restart game</button>
         </div>
     </div>
 

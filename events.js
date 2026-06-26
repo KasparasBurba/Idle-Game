@@ -45,6 +45,31 @@ elements.stealButton.addEventListener("click", () => {
     }
 })
 
+elements.menuButton.addEventListener("click", () => {
+    elements.menuModal.classList.remove("hidden")
+    playSound(sounds.buy)
+})
+
+elements.closeMenu.addEventListener("click", () => {
+    elements.menuModal.classList.add("hidden")
+    playSound(sounds.click)
+})
+
+elements.menuModal.addEventListener("click", (event) => {
+    if(event.target === elements.menuModal) {
+        elements.menuModal.classList.add("hidden")
+        playSound(sounds.click)
+    }
+})
+
+elements.soundVolume.addEventListener("input", () => {
+    game.soundVolume = Number(elements.soundVolume.value)
+})
+
+elements.muteSound.addEventListener("change", () => {
+    game.soundMuted = elements.muteSound.checked
+})
+
 let achievementsInterval
 
 elements.achievementsButton.addEventListener("click", () => {

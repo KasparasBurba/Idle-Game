@@ -2,6 +2,8 @@ let interval
 let stealMaxed = false
 
 const game = {
+    soundVolume: 1,
+    soundMuted: false,
     coins: 0,
     coinsPerSecond: 0,
     coinsPerClick: 1,

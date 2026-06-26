@@ -50,7 +50,12 @@ const elements = {
     totalPrestigePoints: document.getElementById("totalPrestigePoints"),
     prestigeConfirmButton: document.getElementById("prestigeConfirm"),
     prestigeMultiplier: document.getElementById("prestigeMultiplier"),
-    prestigeFormula: document.getElementById("prestigeFormula")
+    prestigeFormula: document.getElementById("prestigeFormula"),
+    menuButton: document.getElementById("menu"),
+    menuModal: document.getElementById("menuModal"),
+    closeMenu: document.getElementById("closeMenu"),
+    soundVolume: document.getElementById("soundVolume"),
+    muteSound: document.getElementById("muteSound")
 }
 
 function updateAll() {

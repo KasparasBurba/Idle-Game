@@ -59,6 +59,8 @@ function loadGame () {
             offlineEarningsPopup()
         }
     }
+    elements.soundVolume.value = game.soundVolume
+    elements.muteSound.checked = game.soundMuted
 }
 
 function restartGame () {

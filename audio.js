@@ -8,6 +8,9 @@ const sounds = {
 }
 
 function playSound(sound) {
+    if (game.soundMuted) return
+
+    sound.volume = game.soundVolume
     sound.currentTime = 0
     sound.play()
 }
